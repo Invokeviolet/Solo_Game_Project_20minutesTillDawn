@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class FlipObject : MonoBehaviour
 {
-    public SpriteRenderer renderer;
+    SpriteRenderer renderer;
     
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();        
     }
 
-    // Update is called once per frame
     void Update()
     {
         

@@ -30,15 +30,8 @@ public class PlayerController : MonoBehaviour
             //대각선이동
             movePlayer = Vector3.right * xAxis + Vector3.up * yAxis;            
             myCC.Move(movePlayer * MoveSpeed * Time.deltaTime);
+            
         }
-
-
-
-        // 마우스로 적 조준하고 왼쪽키로 총알 발사
-        if (Input.GetMouseButtonDown(0)) 
-        {
-            wepon.MoveBullet();
-            Debug.Log("## 총알발사!!!");
-        }
+        
     }
 }

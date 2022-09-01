@@ -5,8 +5,8 @@ using UnityEngine;
 public class RotateFunction : MonoBehaviour
 {
     float angle;
-    Vector3 target;
-    Vector3 mouse;
+    Vector2 target;
+    Vector2 mouse;
 
     private void Start()
     {
@@ -18,9 +18,5 @@ public class RotateFunction : MonoBehaviour
         angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        /*if (angle>180) 
-        { 
-            //캐릭터가 반대 방향을 바라보도록 함
-        }*/
     }
 }

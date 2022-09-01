@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3717740770318395843}
   m_Layer: 0
   m_Name: OutSideBox_1
-  m_TagString: Untagged
+  m_TagString: OutBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 2833501377437213305}
   m_Layer: 0
   m_Name: OutSideBox_2
-  m_TagString: Untagged
+  m_TagString: OutBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 8024038526671702151}
   m_Layer: 0
   m_Name: OutSideBox
-  m_TagString: Untagged
+  m_TagString: OutBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 6825177319977907654}
   m_Layer: 0
   m_Name: OutSideBox_3
-  m_TagString: Untagged
+  m_TagString: OutBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 5226548853236048645}
   m_Layer: 0
   m_Name: OutSideBox_4
-  m_TagString: Untagged
+  m_TagString: OutBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

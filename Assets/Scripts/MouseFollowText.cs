@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MouseFollowText : MonoBehaviour
 {
     [SerializeField] RectTransform transform_cursor; //메인 마우스 커서
-    [SerializeField] Text text_Mouse; // 좌표값
+    [SerializeField] Text text_Mouse; // 재장전 총알 갯수를 가져올 값
 
     void Start()
     {

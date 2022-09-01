@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterData : MonoBehaviour
+[CreateAssetMenu(menuName = "Scriptable/MobData", fileName = "Mob Data")]
+public class MonsterData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float health = 100f; // 체력
+    public float damage = 20f; // 공격력
+    public float speed = 2f; // 이동 속도
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - OutBox
+  - Mob
   layers:
   - Default
   - TransparentFX
