@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7148142156930916179}
   - component: {fileID: 8245516531681340858}
-  - component: {fileID: 2791454412566496386}
+  - component: {fileID: 1831475344835812674}
   m_Layer: 0
   m_Name: EyeMonster
   m_TagString: Mob
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2791454412566496386
+--- !u!114 &1831475344835812674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,10 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f42a8c45e47874d86b0f174fadfa7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
-  MonsterCount: 300
+  monster: {fileID: 1357405111970283289}
+  rotateSpeed: 0
+  MonsterCount: 10
   maxHp: 100
   attackPower: 20
   attackRange: 5
-  speed: 2
-  targetPlayer: {fileID: 0}
+  speed: 5
+  targetPlayer: {fileID: 2506211432469083007, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}

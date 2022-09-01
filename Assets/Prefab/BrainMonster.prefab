@@ -103,5 +103,5 @@ MonoBehaviour:
   maxHp: 100
   attackPower: 20
   attackRange: 5
-  speed: 2
+  speed: 5
   targetPlayer: {fileID: 2506211432469083007, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}

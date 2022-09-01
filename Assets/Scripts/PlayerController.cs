@@ -9,12 +9,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float AttackSpeed=1.8f;
     int curHp=0;
 
+    bool isWalk=false;
+
+
     Vector3 movePlayer = Vector3.zero;
     CharacterController myCC = null;
+    Animator myAnimator;
     Wepon wepon;
     void Start()
     {
         myCC = GetComponent<CharacterController>();
+        myAnimator = GetComponent<Animator>();
         wepon = GetComponent<Wepon>();
     }
 
@@ -28,9 +33,14 @@ public class PlayerController : MonoBehaviour
         if (isMove)
         {
             //대각선이동
-            movePlayer = Vector3.right * xAxis + Vector3.up * yAxis;            
+            movePlayer = Vector3.right * xAxis + Vector3.up * yAxis;
             myCC.Move(movePlayer * MoveSpeed * Time.deltaTime);
+            isWalk = true;
             
+        }
+        else 
+        { 
+            isWalk = false; 
         }
         
     }

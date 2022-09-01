@@ -7,7 +7,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] Monster[] MonsterPrefab;
     public static MonsterSpawner instance;
 
-    [SerializeField] float spawnInterval = 3f;
+    [SerializeField] float spawnInterval = 10f;
     //[SerializeField] Monster Mobprefab;   // 몬스터 프리팹
 
     //public Queue<GameObject> m_queue = new Queue<GameObject>();
