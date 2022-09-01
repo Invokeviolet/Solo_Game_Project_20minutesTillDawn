@@ -4,82 +4,145 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    //타일을 담아줄 배열. 내부 구조는 아래와 같다.
-    //[0][0][0]
-    //[0][0][0]
-    //[0][0][0]
-
-    [SerializeField] public GameObject[] landArray;
-
-    //주인공 오브젝트
-    [SerializeField] public GameObject hero;
-
-    //타일 하나의 크기 = 2
-    [SerializeField] public float UnitSize;
-
-    //주인공의 이동 속도
-    readonly float speed = 50f;
-
-    //시야. 이 시야 밖에 타일이 없으면 타일을 갱신한다.
-    readonly float halfSight = 2;
-
-    //전체 타일 크기. 순서대로 왼쪽-위 좌표, 오른쪽-아래 좌표가 들어간다.
-    Vector2[] border;
+    //맵 배열 선언 // 여기다가 맵을 넣을거임
+    [SerializeField] private GameObject[] LandArray;
+    //플레이어 // 플레이어 좌표값을 받아오기위해서 가져온다 
+    [SerializeField] private PlayerMove player;
+    //타일 크기 // 타일의 크기입니다. 소라님께서는 가로세로 크기가 다르기때문에 변수 두개로 해야됨
+    [SerializeField] private float LandSize = 50f;
 
 
-    void Start()
+
+
+    private void Update()
     {
-        //border 초기화. 주인공이 (0,0)에 있으므로 전체 타일의 왼쪽 끝 좌표는 UnitSize*1.5이다.
-        //둘을 더하면 UnitSize*3이며 이는 전체 타일의 크기와 같다(UnitSize인 타일이 3개)
-        //수직 방향 값도 같은 원리로 초기화한다.
-        border = new Vector2[]
-        {
-            new Vector2 (-UnitSize*1.5f,UnitSize*1.5f),
-            new Vector2 (UnitSize*1.5f,-UnitSize*1.5f)
-        };
-
-    }
-
-
-    void Update()
-    {
-        if (!Input.anyKey) return;
-        //이동 방향을 정한다.
-        Vector3 delta;
-        switch (Input.inputString)
-        {
-            case "w":
-                delta = Vector2.up;
-                break;
-            case "a":
-                delta = Vector2.left;
-                break;
-            case "s":
-                delta = Vector2.down;
-                break;
-            case "d":
-                delta = Vector2.right;
-                break;
-            default :
-                return;
-        }
-        //지금 프레임에 이동할 거리를 구한다.
-        delta *= Time.deltaTime * speed;
-
-        //주인공의 위치를 업데이트한다.
-        hero.transform.position += delta;
-
-        //카메라의 위치를 업데이트한다.
-        Camera.main.transform.position += delta;
-
-        //시야 영역 중 타일이 없는 경우를 체크한다.
         BoundaryCheck();
     }
-    void BoundaryCheck() 
-    { 
-        
+
+    //타일의 어디로 옮.길.지 체크
+    void BoundaryCheck()
+    {
+        if (player.transform.position.x - transform.position.x > 25) // 플레이어의 x좌표와 맵의 좌표를 뺐을때 맵의 절반보다 클때 // 오른쪽으로 갈때
+        {
+            MoveLand(2);
+        }
+        if (player.transform.position.x - transform.position.x < -25) // 왼쪽으로 갈때
+        {
+            MoveLand(0);
+
+        }
+        if (player.transform.position.z - transform.position.z > 25) // 위로 갈때
+        {
+            MoveLand(1);
+
+        }
+        if (player.transform.position.z - transform.position.z < -25) // 아래로 갈때
+        {
+            MoveLand(3);
+        }
     }
 
+    void MoveLand(int dir)
+    {
+        //기존 배열을 복사. LandArray는  새로운배열, _LandArray는 기존 배열을 뜻한다.
+        GameObject[] _LandArray = new GameObject[9];
+        System.Array.Copy(LandArray, _LandArray, 9);
 
+        switch (dir)
+        {
+            case 0:
+                {
+                    transform.position += Vector3.left * 50; // 9개의좌표가들어있는 월드맵의 좌표를 50만큼이동함
+
+
+                    _LandArray[0] = LandArray[2];
+                    _LandArray[1] = LandArray[0];
+                    _LandArray[2] = LandArray[1];
+                    _LandArray[3] = LandArray[5];
+                    _LandArray[4] = LandArray[3];
+                    _LandArray[5] = LandArray[4];
+                    _LandArray[6] = LandArray[8];
+                    _LandArray[7] = LandArray[6];
+                    _LandArray[8] = LandArray[7];
+
+                    LandArray[2].transform.position += Vector3.left * 150;
+                    LandArray[5].transform.position += Vector3.left * 150;
+                    LandArray[8].transform.position += Vector3.left * 150;
+
+                    System.Array.Copy(_LandArray, LandArray, 9);
+
+
+                }
+                break;
+            case 1:
+                {
+                    transform.position += Vector3.forward * 50;
+
+                    _LandArray[0] = LandArray[6];
+                    _LandArray[1] = LandArray[7];
+                    _LandArray[2] = LandArray[8];
+                    _LandArray[3] = LandArray[0];
+                    _LandArray[4] = LandArray[1];
+                    _LandArray[5] = LandArray[2];
+                    _LandArray[6] = LandArray[3];
+                    _LandArray[7] = LandArray[4];
+                    _LandArray[8] = LandArray[5];
+
+                    LandArray[6].transform.position += Vector3.forward * 150;
+                    LandArray[7].transform.position += Vector3.forward * 150;
+                    LandArray[8].transform.position += Vector3.forward * 150;
+
+                    System.Array.Copy(_LandArray, LandArray, 9);
+                }
+                break;
+            case 2:
+                {
+                    transform.position += Vector3.right * 50;
+
+                    _LandArray[0] = LandArray[1];
+                    _LandArray[1] = LandArray[2];
+                    _LandArray[2] = LandArray[0];
+                    _LandArray[3] = LandArray[4];
+                    _LandArray[4] = LandArray[5];
+                    _LandArray[5] = LandArray[3];
+                    _LandArray[6] = LandArray[7];
+                    _LandArray[7] = LandArray[8];
+                    _LandArray[8] = LandArray[6];
+
+                    LandArray[0].transform.position += Vector3.right * 150;
+                    LandArray[3].transform.position += Vector3.right * 150;
+                    LandArray[6].transform.position += Vector3.right * 150;
+
+                    System.Array.Copy(_LandArray, LandArray, 9);
+                }
+                break;
+            case 3:
+                {
+                    transform.position += Vector3.back * 50;
+
+                    _LandArray[0] = LandArray[3];
+                    _LandArray[1] = LandArray[4];
+                    _LandArray[2] = LandArray[5];
+                    _LandArray[3] = LandArray[6];
+                    _LandArray[4] = LandArray[7];
+                    _LandArray[5] = LandArray[8];
+                    _LandArray[6] = LandArray[0];
+                    _LandArray[7] = LandArray[1];
+                    _LandArray[8] = LandArray[2];
+
+                    LandArray[0].transform.position += Vector3.back * 150;
+                    LandArray[1].transform.position += Vector3.back * 150;
+                    LandArray[2].transform.position += Vector3.back * 150;
+
+                    System.Array.Copy(_LandArray, LandArray, 9);
+                }
+                break;
+
+        }
+    }
 
 }
+
+
+
+
