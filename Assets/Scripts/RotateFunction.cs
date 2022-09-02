@@ -4,19 +4,43 @@ using UnityEngine;
 
 public class RotateFunction : MonoBehaviour
 {
+    
+    SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer PlayerspriteRenderer;
+    FlipObject flipObj;
     float angle;
-    Vector2 target;
-    Vector2 mouse;
-
+    public Vector2 dir;
+    float rad;
+    
     private void Start()
     {
-        target = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        flipObj = GetComponent<FlipObject>();
     }
     private void Update()
     {
-        mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
+        var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dir = (mouse - transform.position).normalized;
+
+        rad = Mathf.Atan2(dir.y, dir.x);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        Flip();
+    }
+    void Flip() 
+    {
+        if (dir.x < 0) //총의 위치가 음수일때 캐릭터만 뒤집기
+        {
+            //Debug.Log("## 뒤집기");
+            spriteRenderer.flipY = true;
+            PlayerspriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipY = false;
+            PlayerspriteRenderer.flipX = false;
+        }
     }
 }

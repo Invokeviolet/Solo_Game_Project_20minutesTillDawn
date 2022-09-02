@@ -40,7 +40,7 @@ public class MouseFollowText : MonoBehaviour
         string message = mouseMovePos.ToString();
         Vector2 newPos = Camera.main.ScreenToWorldPoint(mouseMovePos);
         text_Mouse.text = newPos.ToString();
-        text_Mouse.transform.position = mouseMovePos + (new Vector2(55, -30));//x는 양수 좌표, y는 음수 좌표
+        text_Mouse.transform.position = mouseMovePos + (new Vector2(45, -20));//x는 양수 좌표, y는 음수 좌표
         Debug.Log(message);
     }
 }

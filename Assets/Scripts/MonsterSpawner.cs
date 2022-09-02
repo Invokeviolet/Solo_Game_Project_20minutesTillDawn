@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [SerializeField] Monster[] MonsterPrefab;
     public static MonsterSpawner instance;
 
+    [SerializeField] Monster[] MonsterPrefab;
+    [SerializeField] Transform playerPos;
     [SerializeField] float spawnInterval = 10f;
-    //[SerializeField] Monster Mobprefab;   // 몬스터 프리팹
+    
 
-    //public Queue<GameObject> m_queue = new Queue<GameObject>();
-   
     void Start()
     {
         StartCoroutine(processSpawn());
@@ -25,40 +24,19 @@ public class MonsterSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
 
             // 몬스터를 현재 spawnPoint 기준으로 생성한다.
-            Instantiate(MonsterPrefab[0], transform.position, transform.rotation);
+            //Instantiate(MonsterPrefab[0], transform.position, transform.rotation);
+            MonsterPooling.Inst.CreateMonster(instMonster());
         }
     }
 
-    private void Update()
+    private Vector3 instMonster()
     {
+        float Xpos = Random.Range(playerPos.transform.position.x - 10, playerPos.transform.position.x + 10);
+        float Ypos = Random.Range(playerPos.transform.position.y - 8, playerPos.transform.position.x + 8);
 
+        Vector3 vecPos = new Vector3(Xpos, Ypos, 0);
+
+        return vecPos;
     }
-    
 
-    /* public void InsertQueue(GameObject p_object) 
-     { 
-         m_queue.Enqueue (p_object); //게임오브젝트가 큐로 들어감
-         p_object.SetActive(false);
-     }
-     public GameObject GetQueue()
-     {
-         GameObject m_object = m_queue.Dequeue(); //게임오브젝트가 큐로 나옴
-         m_object.SetActive(true);
-
-         return m_object;
-     }
-     IEnumerator MonsterSpawn() 
-     {
-         while (true) 
-         {
-             if (m_queue.Count != 0) 
-             {
-                 Init();
-                 GameObject t_object = GetQueue();
-                 MovePos = new Vector2(xPos, zPos);
-                 t_object.transform.position = gameObject.transform.position;
-             }
-             yield return new WaitForSeconds(1f);
-         }
-     }*/
 }
