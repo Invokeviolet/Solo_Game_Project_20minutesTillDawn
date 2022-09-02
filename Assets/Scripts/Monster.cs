@@ -64,20 +64,15 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public bool CheckWithCollider(SphereCollider otherCollider)
+    {
+        monCC.bounds.Intersects(otherCollider.bounds); // bounds(제한된박스)와 겹치는 곳이 있는지 물어보는 것
+        return false;
+    }
     void onAttackEvent()
     {
-        Debug.Log("## 몬스터의 공격이벤트 처리함수");
+        //Debug.Log("## 몬스터의 공격이벤트 처리함수");
         targetPlayer.SendMessage("TransferDamage", attackPower, SendMessageOptions.DontRequireReceiver);
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (isDead != null)
-        {
-            if (tag == "Bullet")
-            {
-                TransferDamage(bulletobj.Damage);
-            }
-        }
     }
 
     void TransferDamage(DamageInfo dmgInfo)
@@ -92,7 +87,8 @@ public class Monster : MonoBehaviour
 
         if (curHp <= 0)
         {
-            dmgInfo.Attacker.SendMessage("ExpPoint", 10, SendMessageOptions.DontRequireReceiver);
+            // 보상메시지
+            //dmgInfo.Attacker.SendMessage("ExpPoint", 10, SendMessageOptions.DontRequireReceiver);
             curHp = 0;
             nextState(State.DEATH);
         }
@@ -103,6 +99,8 @@ public class Monster : MonoBehaviour
 
     }
    
+
+    //인터페이스를 써서 공격메소드 따로 만들것
 
 
     //---------------------------------------------------------------------------------------
@@ -115,8 +113,7 @@ public class Monster : MonoBehaviour
     {
         NONE,
         IDLE,
-        MOVE,
-        ATTACK,
+        MOVE,        
         HIT,
         DEATH,
 
@@ -126,7 +123,12 @@ public class Monster : MonoBehaviour
     State curState = State.NONE; // 기본 상태
     void nextState(State newState) // 다음 상태로 넘어갈때 (상태를 매개변수로 받음)
     {
+        if (newState == curState) return;
+        if (prevCoroutine != null) StopCoroutine(prevCoroutine);
 
+        curState = newState;
+        prevCoroutine = StartCoroutine(newState.ToString() + "_State");
+        
     }
 
     IEnumerator IDLE_State() // 대기 상태
@@ -154,27 +156,39 @@ public class Monster : MonoBehaviour
             if (Vector3.Distance(targetPlayer.transform.position,transform.position)<=attackRange)
             {
                 myAnimator.SetBool("move", false);
-                nextState(State.ATTACK);
+                //nextState(State.ATTACK);
                 yield break;
             }
             yield return null;
         }
         
     }
-    IEnumerator ATTACK_State() // 공격 상태
-    {
-        
-        
-    }
+    
     IEnumerator HIT_State() // 피격 상태
     {
         //반짝임 효과
-        
+        // 피격 이펙트 출력
+        GameObject instObj = Instantiate(ResDataObj.EffHit, transEff.position, Quaternion.identity);
+        Destroy(instObj, 2f); // 2초 뒤에 삭제된다.
+
+        // 피격 애니메이션 출력
+        myAnimator.SetTrigger("hit");
+
+        nextState(STATE.IDLE);
+
     }
     IEnumerator DEATH_State() // 죽음 상태
     {
         //사라짐 효과
-        
+        // 죽었다면 죽는애니메이션 호출
+        myAnimator.SetTrigger("death");
+        yield return null;
+
+        //
+        //Recycle(gameObject);
+        //gameObject.Recycle();
+
+        MonsterPool.Inst.DestroyMonster(this);
     }
 
 }

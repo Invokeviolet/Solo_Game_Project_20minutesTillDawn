@@ -859,37 +859,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &462574672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 462574673}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &462574673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462574672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.168987, y: 1.3882117, z: -0.0014585694}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &488536981
 GameObject:
   m_ObjectHideFlags: 0
@@ -6283,6 +6252,7 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
+  playerPos: {fileID: 0}
   spawnInterval: 4
 --- !u!1 &1083374771
 GameObject:
@@ -7070,6 +7040,7 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
+  playerPos: {fileID: 0}
   spawnInterval: 3
 --- !u!4 &1682462028 stripped
 Transform:
@@ -7290,6 +7261,7 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
+  playerPos: {fileID: 0}
   spawnInterval: 1
 --- !u!1 &1754337609
 GameObject:
@@ -7584,6 +7556,7 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
+  playerPos: {fileID: 0}
   spawnInterval: 2
 --- !u!1 &2062592012
 GameObject:
