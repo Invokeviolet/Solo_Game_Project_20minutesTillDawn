@@ -6,26 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class HomeScene : MonoBehaviour
 {
-    static public void Start()
+    static void StartGame()
     {
-        GameObject.Find("Next Button").GetComponentInChildren<Text>().text = "Next";
-        GameObject.Find("Home Button").GetComponentInChildren<Text>().text = "Home";
+        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";
     }
-    static public void Level1()
+    static void QuitGame()
     {
-        SceneManager.LoadScene("InGame1");
+        GameObject.Find("Quit_Button").GetComponentInChildren<Text>().text = "Quit";
     }
-    static public void Level2()
-    {
-        SceneManager.LoadScene("InGame2");
-    }
-    static public void Level3()
-    {
-        SceneManager.LoadScene("InGame3");
-    }
-
-    public void Home()
+    static void Home()
     {
         SceneManager.LoadScene("GameHome");
+    }
+    static public void Quit()
+    {
+        Application.Quit();
     }
 }

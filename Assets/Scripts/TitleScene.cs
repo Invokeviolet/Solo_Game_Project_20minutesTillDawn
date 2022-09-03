@@ -1,21 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class TitleScene : MonoBehaviour
 {
-    public void Change()
+    static void StartGame()
+    {
+        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";        
+    }
+    static void QuitGame()
+    {
+        GameObject.Find("Quit_Button").GetComponentInChildren<Text>().text = "Quit";       
+    }
+
+    static public void Play()
     {
         SceneManager.LoadScene("GameScene");
     }
+    static public void Quit()
+    {
+        Application.Quit();
+    }
 
+    //-----------------------------------------------------------------------------------------
+    // Fade In & Out 효과
+    //
+    #region 화면 Fade In & Out
 
     [SerializeField] Image image; // 판넬
     [SerializeField] GameObject PlayButton; //플레이버튼
 
-    private bool checkbool = false;     //투명도 조절 논리형 변수
+    private bool checkbool = false;  // bool 값으로 조건을 넣어서 조건이 만족했을때 판넬 파괴
 
     void Awake()
     {
@@ -24,32 +41,34 @@ public class TitleScene : MonoBehaviour
     }
     void Update()
     {
+        StartCoroutine("WindowOpacity"); //판넬 투명도 조절
 
-        StartCoroutine("MainSplash"); //판넬 투명도 조절
-
-        if (checkbool)    //만약 checkbool 이 참이면
+        if (checkbool==true) 
         {
-            Destroy(this.gameObject); //판넬 파괴, 삭제
+            Destroy(this.gameObject); 
         }
     }
 
-    IEnumerator MainSplash()
+    IEnumerator WindowOpacity()
     {
 
         Color color = image.color; //color 에 판넬 이미지 참조
 
-        for (int i = 100; i >= 0; i--) //for문 100번 반복 0보다 작을 때 까지
+        for (int i = 100; i >= 0; i--)
         {
-            color.a -= Time.deltaTime * 0.01f; //이미지 알파 값을 타임 델타 값 * 0.01
+            color.a -= Time.deltaTime * 0.01f; // 화면이 부드럽게 전환되기 위한 이미지 알파값 조절
             image.color = color; //판넬 이미지 컬러에 바뀐 알파값 참조
 
             if (image.color.a <= 0) //만약 판넬 이미지 알파 값이 0보다 작으면
             {
-                checkbool = true;  //checkbool 참 
+                checkbool = true; 
             }
         }
 
         yield return null;  //코루틴 종료
 
     }
+    #endregion
+    //
+    //-----------------------------------------------------------------------------------------
 }
