@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MonsterPooling : MonoBehaviour
 {
+    //---------------------------------------------------------------------------------------------
+    //싱글톤
+    #region 싱글턴
     private MonsterPooling() { }
     static MonsterPooling instance = null;
     public static MonsterPooling Instance
@@ -15,26 +18,46 @@ public class MonsterPooling : MonoBehaviour
                 instance = FindObjectOfType<MonsterPooling>();
                 if (instance == null)
                 {
-                    instance = new GameObject("Game").AddComponent<MonsterPooling>();
+                    instance = new GameObject("MonsterPool").AddComponent<MonsterPooling>();
                 }
             }
             return instance;
         }
     }
+    #endregion
+    //
+    //---------------------------------------------------------------------------------------------
 
+    [SerializeField] MonsterSpawner mobSpawner;
+    [SerializeField] Monster prefabMob = null;
     Queue<Monster> pool = new Queue<Monster>();
-    [SerializeField] Monster prefab;
-
-    public Monster CreateMonster(Vector3 pos)
+    Monster monster;
+    private void Awake()
     {
+        monster = FindObjectOfType<Monster>();
+        //Debug.Log("## 이봐요 생성되고 있어요?");
+
+        //prefabMob = Resources.Load<Monster>("Monster"); 
+        // (파일로 존재하는)프리팹을 로드하는 함수이다.
+        // -> 파일경로를 찾아가는 것이기 때문에 파일경로가 바뀌면 같이 바꿔주어야하므로 왠만하면 쓰지 말자
+    }
+
+    public Monster CreateMonster(Vector3 pos, Monster name)
+    {
+
         Monster instMob = null;
         //처음에는 아무것도 없으니 생성하자
-
         if (pool.Count == 0)
         {
+            //Debug.Log("## 몬스터 생성중...");
+
+            instMob = Instantiate(name, Vector3.zero, Quaternion.identity, mobSpawner.transform);
+
             // 로드한 프리팹을 이용해서 인스턴트 객체 한개를 만든다.
-            instMob = Instantiate(prefab, pos, Quaternion.identity, this.transform);
+
+            //Debug.Log("## instMob : "+ instMob.name);
             return instMob;
+
         }
 
 
@@ -45,9 +68,7 @@ public class MonsterPooling : MonoBehaviour
         instMob.gameObject.SetActive(true);
 
         //if (pool.Count > 0)
-
         return instMob;
-
     }
 
     public void DestroyMonster(Monster mob)

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-
+    [Header("[몬스터 정보]")]
     [SerializeField] GameObject monster;
-    [SerializeField] int MonsterCount = 10; // 웨이브에 따라 값이 바뀌어야 함
-    [SerializeField] int maxHp = 100; // 체력
+    [SerializeField] int maxHp = 100; // 최대 체력
     [SerializeField] public float attackPower = 20f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
-    [SerializeField] float speed = 5f; // 이동 속도
+    [SerializeField] float speed = 4f; // 이동 속도
+    [SerializeField] public int MonsterCount = 10; // 웨이브에 따라 값이 바뀌어야 함
 
-    int curHp = 0;
+    int curHp = 0; // 현재 체력
     bool isDead { get { return (curHp <= 0); } }
 
     Vector3 direction; //움직일 위치값을 할당하기 위한 선언
@@ -94,13 +94,13 @@ public class Monster : MonoBehaviour
             curHp = 0;
             nextState(State.DEATH);
         }
-        else 
-        { 
+        else
+        {
             nextState(State.HIT);
         }
 
     }
-   
+
 
     //인터페이스를 써서 공격메소드 따로 만들것
 
@@ -115,7 +115,7 @@ public class Monster : MonoBehaviour
     {
         NONE,
         IDLE,
-        MOVE,        
+        MOVE,
         HIT,
         DEATH,
         Restore
@@ -131,24 +131,24 @@ public class Monster : MonoBehaviour
 
         curState = newState;
         prevCoroutine = StartCoroutine(newState.ToString() + "_State");
-        
+
     }
 
     IEnumerator IDLE_State() // 대기 상태
     {
         //myAnimator.SetBool("move",false);
 
-        while (isDead==false) 
+        while (isDead == false)
         {
             targetPlayer = FindObjectOfType<PlayerController>();
-            if (targetPlayer!=null) 
+            if (targetPlayer != null)
             {
                 nextState(State.MOVE);
                 yield break;
             }
             yield return null;
         }
-        
+
     }
     IEnumerator MOVE_State() // 이동 상태
     {
@@ -156,7 +156,7 @@ public class Monster : MonoBehaviour
         while (isDead == false)
         {
             //targetPlayer = FindObjectOfType<PlayerController>();
-            if (Vector3.Distance(targetPlayer.transform.position,transform.position)<=attackRange)
+            if (Vector3.Distance(targetPlayer.transform.position, transform.position) <= attackRange)
             {
                 //myAnimator.SetBool("move", false);
                 nextState(State.MOVE);
@@ -164,9 +164,9 @@ public class Monster : MonoBehaviour
             }
             yield return null;
         }
-        
+
     }
-    
+
     IEnumerator HIT_State() // 피격 상태
     {
         // 피격 이펙트 출력 : 하얀색
@@ -177,7 +177,7 @@ public class Monster : MonoBehaviour
     IEnumerator DEATH_State() // 죽음 상태
     {
         // 죽으면? 사라짐
-        
+
         yield return null;
 
         //Recycle(gameObject);
@@ -185,7 +185,7 @@ public class Monster : MonoBehaviour
 
         //MonsterPooling.Instance.DestroyMonster(this);
     }
-    IEnumerator Restore_State() 
+    IEnumerator Restore_State()
     {
         //플레이어가 죽으면 몬스터는 자기가 스폰된 곳으로 다시 이동
 

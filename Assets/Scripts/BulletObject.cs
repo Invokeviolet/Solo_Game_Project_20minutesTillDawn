@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletObject : MonoBehaviour
 {
     [SerializeField] float ReloadTime = 1.0f;
-    [SerializeField] int Maxbullet = 6;
+    [SerializeField] public int Maxbullet = 6;
     [SerializeField] public int Curbullet = 0;
     [SerializeField] public float Damage = 20f;
     [SerializeField] float AttackSpeed = 10.0f;

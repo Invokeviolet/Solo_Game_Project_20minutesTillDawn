@@ -99,12 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 3553340982366561555}
-  MonsterCount: 10
   maxHp: 100
   attackPower: 20
   attackRange: 5
-  speed: 8
-  targetPlayer: {fileID: 2506211432469083007, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+  speed: 4
+  MonsterCount: 10
 --- !u!70 &-4323826874572506291
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -118,6 +117,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.25, y: 0.28}
+  m_Offset: {x: 0.025113583, y: -0.0044646263}
+  m_Size: {x: 0.18861142, y: 0.27107072}
   m_Direction: 0
