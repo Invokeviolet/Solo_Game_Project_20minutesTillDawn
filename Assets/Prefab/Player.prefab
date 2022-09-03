@@ -71,9 +71,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2506211431395903976}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 0, z: 0}
-  m_LocalScale: {x: 0.66666675, y: 0.66666675, z: 0.66666675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2506211431380723320}
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcaca8990881a946a21f88963c07edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerspriteRenderer: {fileID: 2506211432469082993}
+  dir: {x: 0, y: 0}
 --- !u!1 &2506211432469083007
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +159,7 @@ GameObject:
   - component: {fileID: 2506211432469083006}
   - component: {fileID: 2506211432469082995}
   - component: {fileID: 2506211432469082994}
+  - component: {fileID: 737197260}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -248,6 +251,8 @@ MonoBehaviour:
   maxHp: 4
   MoveSpeed: 3
   AttackSpeed: 1.8
+  attackPower: 20
+  attackRange: 0.1
 --- !u!143 &2506211432469082995
 CharacterController:
   m_ObjectHideFlags: 0
@@ -278,6 +283,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a325e3b516be143b40cfbf83211ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &737197260
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506211432469083007}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 623c345ed61d7c44383ec85fd9a3b155, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2506211432526867094
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2506211432526867081
 Transform:
   m_ObjectHideFlags: 0

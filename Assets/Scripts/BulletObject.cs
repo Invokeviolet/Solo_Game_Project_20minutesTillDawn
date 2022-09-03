@@ -9,16 +9,17 @@ public class BulletObject : MonoBehaviour
     [SerializeField] public int Curbullet = 0;
     [SerializeField] public float Damage = 20f;
     [SerializeField] float AttackSpeed = 10.0f;
-   
+
+    [SerializeField] Monster monster;
+
     Rigidbody2D Rigidbody;
-    //public GameObject targetMonster;
 
     //Vector2 targetMonsterPos;
-    
+
     public Transform myTarget { get; set; }
     private void Start()
     {
-        //targetMonster = FindObjectOfType<Monster>().gameObject;
+        monster = GetComponent<Monster>();
         Rigidbody = GetComponent<Rigidbody2D>();
         //targetMonsterPos = myTarget.position - transform.position;        
     }
@@ -29,14 +30,19 @@ public class BulletObject : MonoBehaviour
     }
     public void Shoot()
     {
-        
+
         //gameObject.SetActive(true); // 총알 활성화
-        transform.Translate(Vector3.right * AttackSpeed*Time.deltaTime);
-        
+        transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Mob" || collision.gameObject.tag == "OutBox")
+        if (collision.gameObject.tag == "Mob")
+        {
+            monster.curHp--;
+
+        }
+        if (collision.gameObject.tag == "OutBox")
         {
             Destroy(gameObject); // 나중에 재사용할 부분
         }

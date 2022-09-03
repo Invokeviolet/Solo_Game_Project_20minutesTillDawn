@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class HomeScene : MonoBehaviour
 {
-    [SerializeField] int RandomChest;//보스몹이 드롭
-    [SerializeField] int ExpPiece;//일반몹이 드롭
+    // Start is called before the first frame update
     void Start()
     {
         

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float attackPower = 20f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     int curHp = 0;
+    public int ExpPoint=0;
 
     bool isWalk = false;
     bool isDead = false;
@@ -63,7 +64,10 @@ public class PlayerController : MonoBehaviour
         {
             if (tag == "Mob")
             {
-                ColorRenderer.material.color = Color.white; //색상 변경하기
+                curHp--;
+
+                //넉백당해야함
+                transform.position = new Vector3(-0.5f, -1, 0);
                 DamageToMonster(myMonster.attackPower);
                 
             }
@@ -87,11 +91,9 @@ public class PlayerController : MonoBehaviour
         if (isDead == true)
         {
             ColorRenderer.material.color = Color.red; //색상 변경하기
-            
+
             //죽을때? 기본 애니메이션들은 작동하지만 위치이동 불가. 캐릭터 오브젝트가 위에서부터 아래로 점점 사라짐
-
-            Destroy(gameObject);
-
+            Vector3 movePlayer = new Vector3(0,0,0);
         }
 
     }

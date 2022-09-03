@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7148142156930916179}
   - component: {fileID: 8245516531681340858}
   - component: {fileID: 1831475344835812674}
+  - component: {fileID: 8342912518500700224}
   m_Layer: 0
   m_Name: EyeMonster
   m_TagString: Mob
@@ -98,10 +99,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 1357405111970283289}
-  rotateSpeed: 0
-  MonsterCount: 10
-  maxHp: 100
+  maxHp: 50
   attackPower: 20
   attackRange: 5
   speed: 5
-  targetPlayer: {fileID: 2506211432469083007, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+  MonsterCount: 10
+--- !u!70 &8342912518500700224
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357405111970283289}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0125689525, y: -0.005985906}
+  m_Size: {x: 0.2993015, y: 0.24184513}
+  m_Direction: 1

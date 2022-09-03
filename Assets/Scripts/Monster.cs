@@ -6,13 +6,13 @@ public class Monster : MonoBehaviour
 {
     [Header("[몬스터 정보]")]
     [SerializeField] GameObject monster;
-    [SerializeField] int maxHp = 100; // 최대 체력
+    [SerializeField] int maxHp = 30; // 최대 체력
     [SerializeField] public float attackPower = 20f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 4f; // 이동 속도
     [SerializeField] public int MonsterCount = 10; // 웨이브에 따라 값이 바뀌어야 함
 
-    int curHp = 0; // 현재 체력
+    public int curHp = 0; // 현재 체력
     bool isDead { get { return (curHp <= 0); } }
 
     Vector3 direction; //움직일 위치값을 할당하기 위한 선언
@@ -101,7 +101,7 @@ public class Monster : MonoBehaviour
 
     }
 
-
+    
     //인터페이스를 써서 공격메소드 따로 만들것
 
 
