@@ -25,7 +25,7 @@ public class MonsterSpawner : MonoBehaviour
 
             // 몬스터를 현재 spawnPoint 기준으로 생성한다.
             //Instantiate(MonsterPrefab[0], transform.position, transform.rotation);
-            MonsterPooling.Inst.CreateMonster(instMonster());
+            MonsterPooling.Instance.CreateMonster(instMonster());
         }
     }
 

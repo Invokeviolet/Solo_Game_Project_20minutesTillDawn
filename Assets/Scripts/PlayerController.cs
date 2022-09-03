@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             if (tag == "Mob")
             {
+                ColorRenderer.material.color = Color.white; //색상 변경하기
                 DamageToMonster(myMonster.attackPower);
             }
         }

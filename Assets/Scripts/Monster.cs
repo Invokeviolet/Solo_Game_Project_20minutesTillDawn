@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     [SerializeField] int MonsterCount = 10; // 웨이브에 따라 값이 바뀌어야 함
     [SerializeField] int maxHp = 100; // 체력
     [SerializeField] public float attackPower = 20f; // 공격력
-    [SerializeField] float attackRange = 5f; // 공격 가능 범위
+    [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 5f; // 이동 속도
 
     int curHp = 0;
@@ -17,20 +17,22 @@ public class Monster : MonoBehaviour
 
     Vector3 direction; //움직일 위치값을 할당하기 위한 선언
 
-    public GameObject targetPlayer;
+    //public GameObject targetPlayer;
+    PlayerController targetPlayer = null;
     Animator myAnimator = null;
     CapsuleCollider2D monCC = null;
     BulletObject bulletobj;
     SpriteRenderer renderer;
     Rigidbody2D Rigidbody;
 
+    SpriteRenderer ColorRenderer; // 상태를 변경할 때 사용하기 위한 스프라이트 렌더러
     //public int MyPosIdx { get; set; } = -1; // 내 영역의 인덱스
 
     private void Awake()
     {
         myAnimator = GetComponentInChildren<Animator>();
         monCC = GetComponent<CapsuleCollider2D>();
-        targetPlayer = FindObjectOfType<PlayerController>().gameObject;
+        targetPlayer = FindObjectOfType<PlayerController>();
         Rigidbody = GetComponent<Rigidbody2D>();
         bulletobj = GetComponent<BulletObject>();
     }
@@ -116,6 +118,7 @@ public class Monster : MonoBehaviour
         MOVE,        
         HIT,
         DEATH,
+        Restore
 
     }
 
@@ -133,11 +136,11 @@ public class Monster : MonoBehaviour
 
     IEnumerator IDLE_State() // 대기 상태
     {
-        myAnimator.SetBool("move",false);
+        //myAnimator.SetBool("move",false);
 
         while (isDead==false) 
         {
-            //targetPlayer = FindObjectOfType<PlayerController>();
+            targetPlayer = FindObjectOfType<PlayerController>();
             if (targetPlayer!=null) 
             {
                 nextState(State.MOVE);
@@ -149,14 +152,14 @@ public class Monster : MonoBehaviour
     }
     IEnumerator MOVE_State() // 이동 상태
     {
-        myAnimator.SetBool("move", true);
+        //myAnimator.SetBool("move", true);
         while (isDead == false)
         {
             //targetPlayer = FindObjectOfType<PlayerController>();
             if (Vector3.Distance(targetPlayer.transform.position,transform.position)<=attackRange)
             {
-                myAnimator.SetBool("move", false);
-                //nextState(State.ATTACK);
+                //myAnimator.SetBool("move", false);
+                nextState(State.MOVE);
                 yield break;
             }
             yield return null;
@@ -166,29 +169,27 @@ public class Monster : MonoBehaviour
     
     IEnumerator HIT_State() // 피격 상태
     {
-        //반짝임 효과
-        // 피격 이펙트 출력
-        GameObject instObj = Instantiate(ResDataObj.EffHit, transEff.position, Quaternion.identity);
-        Destroy(instObj, 2f); // 2초 뒤에 삭제된다.
-
-        // 피격 애니메이션 출력
-        myAnimator.SetTrigger("hit");
-
-        nextState(STATE.IDLE);
-
+        // 피격 이펙트 출력 : 하얀색
+        ColorRenderer.material.color = Color.white; //색상 변경하기
+        nextState(State.IDLE);
+        yield return null;
     }
     IEnumerator DEATH_State() // 죽음 상태
     {
-        //사라짐 효과
-        // 죽었다면 죽는애니메이션 호출
-        myAnimator.SetTrigger("death");
+        // 죽으면? 사라짐
+        
         yield return null;
 
-        //
         //Recycle(gameObject);
-        //gameObject.Recycle();
+        gameObject.Recycle();
 
-        MonsterPool.Inst.DestroyMonster(this);
+        //MonsterPooling.Instance.DestroyMonster(this);
+    }
+    IEnumerator Restore_State() 
+    {
+        //플레이어가 죽으면 몬스터는 자기가 스폰된 곳으로 다시 이동
+
+        yield return null;
     }
 
 }
