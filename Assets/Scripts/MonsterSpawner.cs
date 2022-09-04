@@ -10,55 +10,49 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] Transform playerPos;
     [SerializeField] public int MonsterCount; // 웨이브에 따라 값이 바뀌어야 함
 
-    float MonsterSpawnInterval;
-    
+    float TimeAfterSpawn;
+    float SpawnRate;
+
+   
+
     void Start()
     {
         MonsterCount = 0;
-        MonsterSpawnInterval = 0f;
+        
+        SpawnRate = Random.Range(2f, 6f);
+
     }
+
+
     private void Update()
     {
-        StartCoroutine(processSpawn());
-    }
-    IEnumerator processSpawn()
-    {
-        if (MonsterCount>20) 
-        {
-            MonsterCount = 20;
-            yield return null;
-        }
-
-        MonsterSpawnInterval = Random.Range(3f, 10f);
-
-        while (MonsterCount<20)
-        {
-            MonsterCount ++;
-            yield return new WaitForSeconds(MonsterSpawnInterval); // spawnInterval 만큼 기다리기 
-
-            // 몬스터를 현재 spawnPoint 기준으로 생성한다.
-            //Instantiate(MonsterPrefab[0], transform.position, transform.rotation);
-
-            int randomvalue = Random.Range(0,3); // int 는 마지막 값이 포함 되지 않음
-            Monster Mob = MonsterPooling.Instance.CreateMonster(instRandomPos(), MonsterPrefab[randomvalue]);
-        }
+        processSpawn();
     }
 
-    private Vector3 instRandomPos()
+
+    private void processSpawn()
     {
-        //Debug.Log("## 생성된거야 친구야?");
-        float Xpos = Random.Range(playerPos.transform.position.x - 20, playerPos.transform.position.x + 20);
-        float Ypos = Random.Range(playerPos.transform.position.y - 20, playerPos.transform.position.y + 20);
+        int randomvalue = Random.Range(0,3);
+
+        TimeAfterSpawn += Time.deltaTime;
 
 
-        if ((Xpos >= (playerPos.position.x - 15)) || (Xpos <= (playerPos.position.x + 15)) || (Ypos >= (playerPos.position.x - 15)) || (Ypos <= (playerPos.position.x + 15)))
-        {
-            Xpos = Random.Range(playerPos.transform.position.x - 20, playerPos.transform.position.x + 20);
-            Ypos = Random.Range(playerPos.transform.position.y - 20, playerPos.transform.position.y + 20);            
-        }
+        //몬스터가 생성될 위치
+        float Xpos = Random.Range(transform.localPosition.x - 20, transform.localPosition.x + 20);
+        float Ypos = Random.Range(transform.localPosition.y - 20, transform.localPosition.y + 20);
 
         Vector3 RandomPos = new Vector3(Xpos, Ypos, 0);
-        return RandomPos;
+        Debug.Log("## transform.position.x" + transform.localPosition.x);
+        Debug.Log("## transform.position.y" + transform.localPosition.y);
+
+        if (TimeAfterSpawn>=SpawnRate) 
+        {
+
+            TimeAfterSpawn = 0f;
+            Monster Mob = MonsterPooling.Instance.CreateMonster(RandomPos,MonsterPrefab[randomvalue]);
+
+            SpawnRate= Random.Range(6f, 12f);
+        }
     }
 
 }

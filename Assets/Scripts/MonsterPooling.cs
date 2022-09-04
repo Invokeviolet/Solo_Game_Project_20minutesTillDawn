@@ -29,15 +29,12 @@ public class MonsterPooling : MonoBehaviour
     //---------------------------------------------------------------------------------------------
 
     [SerializeField] MonsterSpawner mobSpawner;
-    //[SerializeField] Monster prefabMob = null;
-
+    
     Queue<Monster> pool = new Queue<Monster>();
     //Monster monster;
     private void Awake()
     {
-        //monster = FindObjectOfType<Monster>();
-        //Debug.Log("## 이봐요 생성되고 있어요?");
-
+        
         //prefabMob = Resources.Load<Monster>("Monster"); 
         // (파일로 존재하는)프리팹을 로드하는 함수이다.
         // -> 파일경로를 찾아가는 것이기 때문에 파일경로가 바뀌면 같이 바꿔주어야하므로 왠만하면 쓰지 말자
@@ -52,7 +49,7 @@ public class MonsterPooling : MonoBehaviour
         {
             //Debug.Log("## 몬스터 생성중...");
 
-            instMob = Instantiate(name, Vector3.zero, Quaternion.identity, mobSpawner.transform);
+            instMob = Instantiate(name, pos, Quaternion.identity, mobSpawner.transform);
 
             // 로드한 프리팹을 이용해서 인스턴트 객체 한개를 만든다.
 

@@ -84,10 +84,10 @@ public class Monster : MonoBehaviour
         //데미지 영향으로 본인의 HP가 변경
         curHp -= (int)dmgInfo;
 
-        Debug.Log("## 데미지 들어왔니?");
+        Debug.Log("## curHp : " + curHp+ "## dmgInfo : " + dmgInfo);
 
         //데미지 텍스트 출력
-        DamageTextMgr.Inst.AddText(dmgInfo, transform.position, transform.position); // 텍스트가 생성될 위치, 사라질 위치
+        //DamageTextMgr.Inst.AddText(dmgInfo, transform.position, transform.position); // 텍스트가 생성될 위치, 사라질 위치
         
         if (curHp <= 0)
         {            
@@ -189,7 +189,7 @@ public class Monster : MonoBehaviour
     IEnumerator DEATH_State() // 죽음 상태
     {
         // 죽으면? 사라짐
-
+        gameObject.SetActive(false);
         yield return null;
 
         //Recycle(gameObject);
