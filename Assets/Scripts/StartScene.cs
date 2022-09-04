@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+// 로딩 화면
 public class StartScene : MonoBehaviour
 {
-    void Update()
+    /*private void Update()
     {
-        SceneManager.LoadScene("TitleScene");
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Change();
+        }
+        
+    }*/
+    void Change()
+    {
+        SceneManager.LoadScene("TitleScene", LoadSceneMode.Additive);
     }
 }

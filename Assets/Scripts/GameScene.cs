@@ -4,27 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// ∞‘¿” »≠∏È æ¿
 public class GameScene : MonoBehaviour
 {
+    void SettingKey() 
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Menu();
+        }
 
-    static void StartGame()
-    {
-        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";
     }
-    static void QuitGame()
+    static void Menu() 
     {
-        GameObject.Find("Quit_Button").GetComponentInChildren<Text>().text = "Quit";
-    }
-    static void TryAgain()
-    {
-        GameObject.Find("TryAgain_Button").GetComponentInChildren<Text>().text = "TryAgain";
-    }
-    static void QuitToMenu()
-    {
-        GameObject.Find("QuitToMenu_Button").GetComponentInChildren<Text>().text = "QuitToMenu";
+        SceneManager.LoadScene("Menu");
     }
     static void Home()
-    {
+    {        
         SceneManager.LoadScene("GameHome");
     }
     static public void Quit()

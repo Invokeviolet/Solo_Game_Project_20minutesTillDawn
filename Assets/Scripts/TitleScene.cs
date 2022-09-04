@@ -4,20 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// 유저에게 보이는 첫 화면
 public class TitleScene : MonoBehaviour
 {
     static void StartGame()
     {
-        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";        
+        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";
     }
     static void QuitGame()
     {
-        GameObject.Find("Quit_Button").GetComponentInChildren<Text>().text = "Quit";       
+        GameObject.Find("Quit_Button").GetComponentInChildren<Text>().text = "Quit";
     }
-
+    static void TryAgain()
+    {
+        GameObject.Find("TryAgain_Button").GetComponentInChildren<Text>().text = "TryAgain";
+    }
+    static void QuitToMenu()
+    {
+        GameObject.Find("QuitToMenu_Button").GetComponentInChildren<Text>().text = "QuitToMenu";
+    }
     static public void Play()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("HomeScene", LoadSceneMode.Additive);
     }
     static public void Quit()
     {
