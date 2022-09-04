@@ -8,27 +8,27 @@ public class MonsterSpawner : MonoBehaviour
 
     [SerializeField] Monster[] MonsterPrefab;
     [SerializeField] Transform playerPos;
-    float spawnInterval;
+    float MonsterSpawnInterval;
     
-
     void Start()
     {
         StartCoroutine(processSpawn());
+        MonsterSpawnInterval = 0f;
     }
 
     IEnumerator processSpawn()
     {
-        spawnInterval = Random.RandomRange(3f, 10f);
+        MonsterSpawnInterval = Random.Range(3f, 10f);
         while (true)
         {
             // spawnInterval 만큼 기다리기 
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(MonsterSpawnInterval);
 
             // 몬스터를 현재 spawnPoint 기준으로 생성한다.
             //Instantiate(MonsterPrefab[0], transform.position, transform.rotation);
 
             int randomvalue = Random.Range(0,3); // int 는 마지막 값이 포함 되지 않음
-            Monster mob = MonsterPooling.Instance.CreateMonster(instRandomPos(), MonsterPrefab[randomvalue]);
+            Monster Mob = MonsterPooling.Instance.CreateMonster(instRandomPos(), MonsterPrefab[randomvalue]);
         }
     }
 

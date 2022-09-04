@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 // ∞‘¿” »≠∏È æ¿
 public class GameScene : MonoBehaviour
 {
-    void SettingKey() 
+    void SettingKey()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -15,19 +15,26 @@ public class GameScene : MonoBehaviour
         }
 
     }
-    static void Menu() 
+    static void Menu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
     }
     static void Home()
-    {        
+    {
         SceneManager.LoadScene("GameHome");
     }
     static public void Quit()
     {
         Application.Quit();
     }
-
+    /*static void LevelUp()
+    {
+    
+    }*/
+   /* static void ChestOpen()
+    {
+        SceneManager.ChestOpenScene("GameHome");
+    }*/
 
 
 

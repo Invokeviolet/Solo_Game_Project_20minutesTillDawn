@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FlipObject : MonoBehaviour
 {
-    SpriteRenderer renderer;
+    SpriteRenderer FlipRenderer;
     
 
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        FlipRenderer = GetComponent<SpriteRenderer>();
         
     }
 
@@ -20,12 +20,12 @@ public class FlipObject : MonoBehaviour
         if (Input.GetAxis("Horizontal")<0) //마우스위치가 음수일때 플레이어 몸도 돌아감
         { 
             flipMove = Vector2.left;
-            renderer.flipX = true;
+            FlipRenderer.flipX = true;
         }
         else if (Input.GetAxis("Horizontal") > 0)
         {
             flipMove = Vector2.right;
-            renderer.flipX = false;
+            FlipRenderer.flipX = false;
         }
     }
 }

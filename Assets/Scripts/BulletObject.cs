@@ -9,11 +9,13 @@ public class BulletObject : MonoBehaviour
     [SerializeField] public int Curbullet = 0;
     [SerializeField] public float Damage = 20f;
     [SerializeField] float AttackSpeed = 10.0f;
-
+    
     [SerializeField] Monster monster;
 
     Rigidbody2D Rigidbody;
+    Animator BulletAnimator;
 
+    bool isReload=false;
     //Vector2 targetMonsterPos;
 
     public Transform myTarget { get; set; }
@@ -21,13 +23,36 @@ public class BulletObject : MonoBehaviour
     {
         monster = GetComponent<Monster>();
         Rigidbody = GetComponent<Rigidbody2D>();
-        //targetMonsterPos = myTarget.position - transform.position;        
+        BulletAnimator = GetComponent<Animator>();
+        
+        Curbullet = Maxbullet;
+        
     }
+
+
     void Update()
     {
         // 키입력이 없을때는 총알 없기
         Shoot();
+
+        if (Curbullet <= Maxbullet)
+        {
+            ReloadBullet();
+
+            isReload = true;
+            //재장전 애니메이션
+            BulletAnimator.SetBool("isReload", isReload);
+
+        }
+        else 
+        {
+            isReload = false;
+            BulletAnimator.SetBool("isReload", isReload);
+
+        }
     }
+
+
     public void Shoot()
     {
 
@@ -35,6 +60,8 @@ public class BulletObject : MonoBehaviour
         transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime);
 
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Mob")
@@ -47,5 +74,18 @@ public class BulletObject : MonoBehaviour
             Destroy(gameObject); // 나중에 재사용할 부분
         }
 
+    }
+
+
+    Coroutine ReloadCoroutine = null;
+
+    IEnumerator ReloadBullet() 
+    {
+        while (isReload == true)
+        {
+            yield return new WaitForSeconds(ReloadTime);
+            
+            //재장전 슬라이더 움직이기
+        }
     }
 }

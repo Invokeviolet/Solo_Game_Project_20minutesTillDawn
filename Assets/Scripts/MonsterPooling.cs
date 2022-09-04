@@ -29,12 +29,13 @@ public class MonsterPooling : MonoBehaviour
     //---------------------------------------------------------------------------------------------
 
     [SerializeField] MonsterSpawner mobSpawner;
-    [SerializeField] Monster prefabMob = null;
+    //[SerializeField] Monster prefabMob = null;
+
     Queue<Monster> pool = new Queue<Monster>();
-    Monster monster;
+    //Monster monster;
     private void Awake()
     {
-        monster = FindObjectOfType<Monster>();
+        //monster = FindObjectOfType<Monster>();
         //Debug.Log("## 이봐요 생성되고 있어요?");
 
         //prefabMob = Resources.Load<Monster>("Monster"); 

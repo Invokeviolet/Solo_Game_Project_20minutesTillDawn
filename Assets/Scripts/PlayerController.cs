@@ -5,15 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] int maxHp = 4;
-    [SerializeField] float MoveSpeed = 3.0f;
-    [SerializeField] float AttackSpeed = 1.8f;
+    [SerializeField] float MoveSpeed = 3.0f;    
     [SerializeField] float attackPower = 20f; // 공격력
-    [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
+    //[SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     int curHp = 0;
     public int ExpPoint=0;
 
-    bool isWalk = false;
-    bool isDead = false;
+    bool isWalk ;
+    bool isDead;
 
 
     Vector3 movePlayer = Vector3.zero;
@@ -31,6 +30,8 @@ public class PlayerController : MonoBehaviour
         wepon = GetComponent<Wepon>();
         myMonster = GetComponent<Monster>();
         ColorRenderer = GetComponent<SpriteRenderer>();
+        isDead = false;
+        isWalk = false;
     }
 
     void Update()
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
     //이동없이 마우스가 x < 0 이면 뒤집어주기
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDead != null)
+        if (!isDead)
         {
             if (tag == "Mob")
             {

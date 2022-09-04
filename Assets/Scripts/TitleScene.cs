@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+SceneManager.SetActiveScene(SceneManager.GetSceneByName("HomeScene"));
+
 // 유저에게 보이는 첫 화면
 public class TitleScene : MonoBehaviour
 {
+    
     static void StartGame()
     {
         GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";
@@ -38,7 +41,7 @@ public class TitleScene : MonoBehaviour
     //
     #region 화면 Fade In & Out
 
-    [SerializeField] Image image; // 판넬
+    /*[SerializeField] Image image; // 판넬
     [SerializeField] GameObject PlayButton; //플레이버튼
 
     private bool checkbool = false;  // bool 값으로 조건을 넣어서 조건이 만족했을때 판넬 파괴
@@ -76,7 +79,7 @@ public class TitleScene : MonoBehaviour
 
         yield return null;  //코루틴 종료
 
-    }
+    }*/
     #endregion
     //
     //-----------------------------------------------------------------------------------------

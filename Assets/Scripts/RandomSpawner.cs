@@ -57,7 +57,7 @@ public class RandomSpawner : MonoBehaviour
 
     IEnumerator processSpawn()
     {
-        spawnInterval = Random.RandomRange(3f, 10f);
+        spawnInterval = Random.Range(3f, 10f);
         while (true)
         {
             // spawnInterval 만큼 기다리기 

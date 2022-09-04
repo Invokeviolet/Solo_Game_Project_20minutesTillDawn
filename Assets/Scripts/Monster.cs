@@ -22,7 +22,7 @@ public class Monster : MonoBehaviour
     Animator myAnimator = null;
     CapsuleCollider2D monCC = null;
     BulletObject bulletobj;
-    SpriteRenderer renderer;
+    SpriteRenderer MonsterRenderer;
     Rigidbody2D Rigidbody;
 
     SpriteRenderer ColorRenderer; // 상태를 변경할 때 사용하기 위한 스프라이트 렌더러
@@ -40,7 +40,7 @@ public class Monster : MonoBehaviour
     private void OnEnable()
     {
         curHp = maxHp;
-        renderer = GetComponent<SpriteRenderer>();
+        MonsterRenderer = GetComponent<SpriteRenderer>();
     }
     void Start()
     {
@@ -58,11 +58,11 @@ public class Monster : MonoBehaviour
 
         if (direction.x < 0)
         {
-            renderer.flipX = true;
+            MonsterRenderer.flipX = true;
         }
         else
         {
-            renderer.flipX = false;
+            MonsterRenderer.flipX = false;
         }
     }
 
