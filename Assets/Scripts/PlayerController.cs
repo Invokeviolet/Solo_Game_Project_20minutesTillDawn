@@ -14,13 +14,18 @@ public class PlayerController : MonoBehaviour
     bool isWalk;
     bool isDead;
 
-    Vector3 movePlayer ;
+    Vector2 movePlayer;
     Animator myAnimator;
     Monster myMonster;
     Wepon wepon;
 
     SpriteRenderer ColorRenderer;
     Rigidbody2D rigidbody2D;
+
+
+    float TimeTrigger = 0f;
+    float TimeRate = 1f;
+
 
     private void Awake()
     {
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isWalk = false;
+
     }
 
     void Update()
@@ -48,8 +54,8 @@ public class PlayerController : MonoBehaviour
         if (isMove)
         {
             //대각선이동
-            movePlayer = Vector3.right * xAxis + Vector3.up * yAxis;
-            rigidbody2D.MovePosition(movePlayer * MoveSpeed * Time.deltaTime);
+            movePlayer = Vector2.right * xAxis + Vector2.up * yAxis;
+            rigidbody2D.MovePosition(rigidbody2D.position + (movePlayer * MoveSpeed * Time.deltaTime));
             isWalk = true;
             myAnimator.SetBool("isWalked", isWalk);
         }
@@ -58,33 +64,41 @@ public class PlayerController : MonoBehaviour
             isWalk = false;
             myAnimator.SetBool("isWalked", false);
         }
-        
 
     }
 
     //이동할때 마우스가 x < 0 이면 그대로 보던 방향을 보고
     //이동없이 마우스가 x < 0 이면 뒤집어주기
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
+
+        TimeTrigger += Time.deltaTime;
+
         if (isDead) { return; }
+
         if (!isDead)
         {
-
+            // 새로운 적이 닿았을 때 또 Hp 감소하는 것을 체크해주어야 함. -> 유니런 참고
             if (collision.tag == "Mob")
             {
-                curHp--;
-                Debug.Log("## curHp : " + curHp);
-                //넉백당해야함
-                transform.position = new Vector3(-0.5f, -1, 0);
-                DamageToMonster(myMonster.attackPower); //
+                if (TimeTrigger >= TimeRate) 
+                {
+                    TimeTrigger = 0;
 
+                    curHp--;
+                    Debug.Log("## curHp : " + curHp);
+                    //넉백당해야함                
+                    DamageToMonster(myMonster.attackPower);
+
+                }
             }
+
         }
     }
 
     void DamageToMonster(float damageValue)
     {
-        if (isDead==true) return;
+        if (isDead == true) return;
 
         curHp -= (int)damageValue;
         if (curHp <= 0)
