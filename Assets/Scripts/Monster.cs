@@ -7,7 +7,7 @@ public class Monster : MonoBehaviour
     [Header("[몬스터 정보]")]
     [SerializeField] GameObject monster;
     [SerializeField] int maxHp = 30; // 최대 체력
-    [SerializeField] public float attackPower = 20f; // 공격력
+    [SerializeField] public float attackPower = 1f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 1.5f; // 이동 속도
     
@@ -58,6 +58,7 @@ public class Monster : MonoBehaviour
     }
     void MoveTarget()
     {
+        if (targetPlayer == null) { return; }
         direction = (targetPlayer.transform.position - transform.position).normalized; //목표 위치 - 나의 위치. 평준화       
         gameObject.transform.Translate(direction * speed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간)
 

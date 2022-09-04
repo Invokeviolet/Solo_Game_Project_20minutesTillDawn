@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 1357405111970283289}
   maxHp: 50
-  attackPower: 20
+  attackPower: 1
   attackRange: 5
   speed: 1.5
   curHp: 0

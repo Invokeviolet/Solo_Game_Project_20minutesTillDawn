@@ -6,9 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 100f;
-    //[SerializeField] float attackPower = 20f; // 공격력
-    //[SerializeField] float attackRange = 0.1f; // 공격 가능 범위
-    int curHp = 0;
+    
+    public int curHp = 0;
     public int ExpPoint = 0;
 
     bool isWalk;
@@ -20,8 +19,7 @@ public class PlayerController : MonoBehaviour
     Wepon wepon;
 
     SpriteRenderer ColorRenderer;
-    Rigidbody2D rigidbody2D;
-
+    Rigidbody2D rigidbody2D;    
 
     float TimeTrigger = 0f;
     float TimeRate = 1f;
@@ -30,18 +28,19 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         curHp = maxHp;
+        gameObject.SetActive(true);
     }
     void Start()
     {
         myAnimator = GetComponent<Animator>();
         wepon = GetComponent<Wepon>();
-        myMonster = GetComponent<Monster>();
+        myMonster = FindObjectOfType<Monster>();
         ColorRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
         isDead = false;
         isWalk = false;
-
+        
     }
 
     void Update()
@@ -84,9 +83,7 @@ public class PlayerController : MonoBehaviour
                 if (TimeTrigger >= TimeRate) 
                 {
                     TimeTrigger = 0;
-
-                    curHp--;
-                    Debug.Log("## curHp : " + curHp);
+                                        
                     //넉백당해야함
                     DamageToMonster(myMonster.attackPower);
 
@@ -98,11 +95,16 @@ public class PlayerController : MonoBehaviour
 
     void DamageToMonster(float damageValue)
     {
+        
         if (isDead == true) return;
 
+        Debug.Log("## curHp : "+ curHp);
+
         curHp -= (int)damageValue;
+        
         if (curHp <= 0)
         {
+            Debug.Log("## change curHp : " + curHp);
             curHp = 0;
             isDead = true;
             Die(); // 나중에 Enum 사용하여 정리
@@ -111,14 +113,15 @@ public class PlayerController : MonoBehaviour
     }
     void Die()
     {
-        Debug.Log("## isDead : " + isDead);
+        //Debug.Log("## isDead : " + isDead);
         if (isDead == true)
         {
             Debug.Log("## isDead : " + isDead);
             ColorRenderer.material.color = Color.red; //색상 변경하기
 
             //죽을때? 기본 애니메이션들은 작동하지만 위치이동 불가. 캐릭터 오브젝트가 위에서부터 아래로 점점 사라짐
-            Vector3 movePlayer = new Vector3(0, 0, 0);
+            gameObject.SetActive(false);
+
         }
 
     }
