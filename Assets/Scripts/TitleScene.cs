@@ -27,6 +27,7 @@ public class TitleScene : MonoBehaviour
     {
         SceneManager.LoadScene("HomeScene", LoadSceneMode.Additive);
     }
+   
     static public void Quit()
     {
         Application.Quit();
