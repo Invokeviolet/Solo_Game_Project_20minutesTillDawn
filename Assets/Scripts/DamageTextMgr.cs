@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DamageTextMgr : MonoBehaviour //수정필요
+public class DamageTextMgr : MonoBehaviour 
 {
     static DamageTextMgr instance;
     public static DamageTextMgr Inst
