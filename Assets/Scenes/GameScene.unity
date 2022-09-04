@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 209883779}
   - component: {fileID: 209883781}
   - component: {fileID: 209883780}
+  - component: {fileID: 209883782}
   m_Layer: 5
   m_Name: FullHeart4
   m_TagString: Untagged
@@ -412,6 +413,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209883778}
   m_CullTransparentMesh: 1
+--- !u!95 &209883782
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209883778}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18881c9005f4e674d9ff579d450768fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &274855010
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +444,7 @@ GameObject:
   - component: {fileID: 274855011}
   - component: {fileID: 274855013}
   - component: {fileID: 274855012}
+  - component: {fileID: 274855014}
   m_Layer: 5
   m_Name: FullHeart2
   m_TagString: Untagged
@@ -488,6 +510,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274855010}
   m_CullTransparentMesh: 1
+--- !u!95 &274855014
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274855010}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18881c9005f4e674d9ff579d450768fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &291168095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,6 +1822,7 @@ GameObject:
   - component: {fileID: 826024929}
   - component: {fileID: 826024931}
   - component: {fileID: 826024930}
+  - component: {fileID: 826024932}
   m_Layer: 5
   m_Name: FullHeart3
   m_TagString: Untagged
@@ -1845,6 +1888,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826024928}
   m_CullTransparentMesh: 1
+--- !u!95 &826024932
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826024928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18881c9005f4e674d9ff579d450768fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &890602676
 GameObject:
   m_ObjectHideFlags: 0
@@ -7088,6 +7151,7 @@ GameObject:
   - component: {fileID: 1520140678}
   - component: {fileID: 1520140680}
   - component: {fileID: 1520140679}
+  - component: {fileID: 1520140681}
   m_Layer: 5
   m_Name: FullHeart1
   m_TagString: Untagged
@@ -7153,6 +7217,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520140677}
   m_CullTransparentMesh: 1
+--- !u!95 &1520140681
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520140677}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18881c9005f4e674d9ff579d450768fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1526385281
 GameObject:
   m_ObjectHideFlags: 0
