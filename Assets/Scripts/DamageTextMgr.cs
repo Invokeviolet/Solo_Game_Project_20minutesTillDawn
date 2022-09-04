@@ -27,9 +27,14 @@ public class DamageTextMgr : MonoBehaviour
     {
         canvas = FindObjectOfType<Canvas>();
     }
+
+
     [SerializeField] Text prefabDamageText = null; // 데미지 텍스트 프리팹
+
+
     public void AddText(float damageValue, Vector3 mousePos, Vector3 offsetPos) // 점수 표시될 값, 표시될 위치값을 받아오자
     {
+        Debug.Log("## 데미지 텍스트 떴니?");
         Vector3 screenPos = Camera.main.WorldToScreenPoint(mousePos + offsetPos);
 
         Text instTxt = Instantiate(prefabDamageText, screenPos, Quaternion.identity, canvas.transform);

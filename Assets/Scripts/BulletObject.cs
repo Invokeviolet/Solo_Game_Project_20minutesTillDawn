@@ -7,9 +7,9 @@ public class BulletObject : MonoBehaviour
     [SerializeField] float ReloadTime = 1.0f;
     [SerializeField] public int Maxbullet = 6;
     [SerializeField] public int Curbullet = 0;
-    [SerializeField] public float Damage = 20f;
     [SerializeField] float AttackSpeed = 10.0f;
-    
+    public float BulletDamage = 20f;
+
     [SerializeField] Monster monster;
 
     Rigidbody2D Rigidbody;
@@ -21,7 +21,7 @@ public class BulletObject : MonoBehaviour
     public Transform myTarget { get; set; }
     private void Start()
     {
-        monster = GetComponent<Monster>();
+        monster = FindObjectOfType<Monster>();
         Rigidbody = GetComponent<Rigidbody2D>();
         BulletAnimator = GetComponent<Animator>();
         
@@ -41,13 +41,13 @@ public class BulletObject : MonoBehaviour
 
             isReload = true;
             //재장전 애니메이션
-            BulletAnimator.SetBool("isReload", isReload);
+            //BulletAnimator.SetBool("isReload", isReload);
 
         }
         else 
         {
             isReload = false;
-            BulletAnimator.SetBool("isReload", isReload);
+            //BulletAnimator.SetBool("isReload", isReload);
 
         }
     }
@@ -64,12 +64,13 @@ public class BulletObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Mob")
+        if (collision.tag == "Mob")
         {
-            monster.curHp--;
-
+            Debug.Log("## 총알 데미지 들어가는 곳");
+            monster.TransferDamage(BulletDamage);
+            Destroy(gameObject);
         }
-        if (collision.gameObject.tag == "OutBox")
+        if (collision.tag == "OutBox")
         {
             Destroy(gameObject); // 나중에 재사용할 부분
         }

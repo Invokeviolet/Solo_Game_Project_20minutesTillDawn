@@ -39,7 +39,7 @@ public class MouseFollowText : MonoBehaviour
         string message = bulletCount.ToString(); 
         Vector2 bullCountPos = Camera.main.ScreenToWorldPoint(mouseMovePos);
         text_Mouse.text = bullCountPos.ToString();
-        text_Mouse.transform.position = mouseMovePos + (new Vector2(45, -20));//x는 양수 좌표, y는 음수 좌표
+        text_Mouse.transform.position = mouseMovePos + (new Vector2(100, -50));//x는 양수 좌표, y는 음수 좌표
         //Debug.Log(bulletMessage);
     }
 
