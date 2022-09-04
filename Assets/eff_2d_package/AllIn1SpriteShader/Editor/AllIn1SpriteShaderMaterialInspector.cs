@@ -232,7 +232,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
 
     private void Culling()
     {
-        MaterialProperty cullO = ShaderGUI.FindProperty("_CullingOption", matProperties);;
+        MaterialProperty cullO = ShaderGUI.FindProperty("_CullingOption", matProperties);
         float tempValue = cullO.floatValue;
         cullMode = (UnityEngine.Rendering.CullMode)cullO.floatValue;
         cullMode = (UnityEngine.Rendering.CullMode)EditorGUILayout.EnumPopup("Culling Mode", cullMode);
