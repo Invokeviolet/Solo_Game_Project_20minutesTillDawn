@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ExpItem : MonoBehaviour
 {
-    [SerializeField] int ExpPiece; //일반몹이 드롭
+    [SerializeField] int ExpValue; //일반몹이 드롭
     PlayerController player;
 
     
     void Awake()
     {
-        ExpPiece = 10;
+        ExpValue = 10;
         player = GetComponent<PlayerController>();
     }
 
@@ -24,7 +24,7 @@ public class ExpItem : MonoBehaviour
     {
         if (tag == "Player") 
         { 
-            player.ExpPoint++;
+            player.ExpPoint+= ExpValue;
             
         }
     }

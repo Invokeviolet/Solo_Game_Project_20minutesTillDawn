@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 3.0f;    
-    [SerializeField] float attackPower = 20f; // 공격력
+    //[SerializeField] float attackPower = 20f; // 공격력
     //[SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     int curHp = 0;
     public int ExpPoint=0;
@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
 
     SpriteRenderer ColorRenderer;
 
+
+    private void Awake()
+    {
+        curHp = maxHp;
+    }
     void Start()
     {
         myCC = GetComponent<CharacterController>();

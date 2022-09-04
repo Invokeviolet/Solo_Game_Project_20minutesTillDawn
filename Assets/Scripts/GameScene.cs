@@ -37,7 +37,7 @@ public class GameScene : MonoBehaviour
     }*/
 
 
-
+/*
     // 게임 하는 동안
     [SerializeField] private Text timeText; //생존 시간
     [SerializeField] private float surviveTime; //생존 시간
@@ -130,5 +130,5 @@ public class GameScene : MonoBehaviour
     }
     #endregion
     //
-    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------*/
 }

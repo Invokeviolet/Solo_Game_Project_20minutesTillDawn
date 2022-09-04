@@ -77,7 +77,7 @@ public class BulletObject : MonoBehaviour
     }
 
 
-    Coroutine ReloadCoroutine = null;
+    //Coroutine ReloadCoroutine = null;
 
     IEnumerator ReloadBullet() 
     {

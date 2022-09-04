@@ -54,7 +54,7 @@ public class Monster : MonoBehaviour
     void MoveTarget()
     {
         direction = (targetPlayer.transform.position - transform.position).normalized; //목표 위치 - 나의 위치. 평준화       
-        gameObject.transform.Translate(direction * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간)
+        gameObject.transform.Translate(direction * speed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간)
 
         if (direction.x < 0)
         {
