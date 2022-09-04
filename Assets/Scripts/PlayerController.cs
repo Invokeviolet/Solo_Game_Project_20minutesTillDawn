@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
                     curHp--;
                     Debug.Log("## curHp : " + curHp);
-                    //넉백당해야함                
+                    //넉백당해야함
                     DamageToMonster(myMonster.attackPower);
 
                 }
