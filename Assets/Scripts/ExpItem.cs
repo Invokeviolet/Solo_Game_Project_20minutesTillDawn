@@ -6,6 +6,8 @@ public class ExpItem : MonoBehaviour
 {
     [SerializeField] int ExpPiece; //일반몹이 드롭
     PlayerController player;
+
+    
     void Awake()
     {
         ExpPiece = 10;
@@ -20,6 +22,10 @@ public class ExpItem : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (tag == "Player") { player.ExpPoint++; }
+        if (tag == "Player") 
+        { 
+            player.ExpPoint++;
+            
+        }
     }
 }

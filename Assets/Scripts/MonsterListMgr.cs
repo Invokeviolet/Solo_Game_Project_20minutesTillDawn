@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterListMgr : MonoBehaviour
 {
-    private MonsterListMgr() { } // 
+    /*private MonsterListMgr() { }*/ // 
     static MonsterListMgr instance = null;
 
     //--------------------------------------------------------------------------------------   

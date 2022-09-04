@@ -8,6 +8,7 @@ TagManager:
   - OutBox
   - Mob
   - UI_Button
+  - Exp_Item
   layers:
   - Default
   - TransparentFX
