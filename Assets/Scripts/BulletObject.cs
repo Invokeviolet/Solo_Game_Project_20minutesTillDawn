@@ -67,7 +67,8 @@ public class BulletObject : MonoBehaviour
         if (collision.tag == "Mob")
         {
             Debug.Log("## 총알 데미지 들어가는 곳");
-            monster.TransferDamage(BulletDamage);
+
+            Curbullet--;
             Destroy(gameObject);
         }
         if (collision.tag == "OutBox")

@@ -35,7 +35,7 @@ public class Monster : MonoBehaviour
         monCC = GetComponent<CapsuleCollider2D>();
         targetPlayer = FindObjectOfType<PlayerController>();
         Rigidbody = GetComponent<Rigidbody2D>();
-        bulletobj = GetComponent<BulletObject>();
+        bulletobj = FindObjectOfType<BulletObject>();
 
         //isAttacked = false;
         //myAnimator.SetBool("isAttacked", isAttacked);
@@ -54,12 +54,18 @@ public class Monster : MonoBehaviour
     {
         MoveTarget();
         if (isDead) return;
+        
     }
     void MoveTarget()
     {
         direction = (targetPlayer.transform.position - transform.position).normalized; //목표 위치 - 나의 위치. 평준화       
         gameObject.transform.Translate(direction * speed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간)
 
+        if (targetPlayer == null)
+        {
+            gameObject.transform.Translate(-direction * speed * Time.deltaTime); // 타겟이 없을 경우 다시 되돌아감
+
+        }
         if (direction.x < 0)
         {
             MonsterRenderer.flipX = true;
@@ -73,6 +79,7 @@ public class Monster : MonoBehaviour
     
     void onAttackEvent()
     {
+        if (targetPlayer==null) { return; }
         //Debug.Log("## 몬스터의 공격이벤트 처리함수");
         targetPlayer.SendMessage("TransferDamage", attackPower, SendMessageOptions.DontRequireReceiver);
     }
@@ -84,7 +91,7 @@ public class Monster : MonoBehaviour
         //데미지 영향으로 본인의 HP가 변경
         curHp -= (int)dmgInfo;
 
-        Debug.Log("## curHp : " + curHp+ "## dmgInfo : " + dmgInfo);
+        //Debug.Log("## curHp : " + curHp+ "## dmgInfo : " + dmgInfo);
 
         //데미지 텍스트 출력
         //DamageTextMgr.Inst.AddText(dmgInfo, transform.position, transform.position); // 텍스트가 생성될 위치, 사라질 위치
@@ -106,8 +113,10 @@ public class Monster : MonoBehaviour
         if (collision.tag == "Bullet") 
         {
             //Debug.Log("## 아!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            direction = new Vector3 (-0.1f, -0.1f, 0); // 넉백
+            direction = new Vector3 (-0.1f, -0.1f, 0); // 넉백 -> 총알 방향으로 뒤로 밀려나야 함
             gameObject.transform.Translate(direction * speed * Time.deltaTime);
+
+            TransferDamage(20f); // 총알 데미지 값
 
             //isAttacked = true;
 
@@ -200,7 +209,7 @@ public class Monster : MonoBehaviour
     IEnumerator Restore_State()
     {
         //플레이어가 죽으면 몬스터는 자기가 스폰된 곳으로 다시 이동
-
+        Debug.Log("## 난 죽었다");
         yield return null;
     }
 

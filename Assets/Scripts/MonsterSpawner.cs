@@ -10,8 +10,8 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] Transform playerPos;
     [SerializeField] public int MonsterCount; // 웨이브에 따라 값이 바뀌어야 함
 
-    float TimeAfterSpawn;
-    float SpawnRate;
+    float TimeAfterSpawn; // 생성하는데 걸리는 시간
+    float SpawnRate; // 다음 생성까지 걸리는 시간
 
    
 
@@ -42,8 +42,7 @@ public class MonsterSpawner : MonoBehaviour
         float Ypos = Random.Range(transform.localPosition.y - 20, transform.localPosition.y + 20);
 
         Vector3 RandomPos = new Vector3(Xpos, Ypos, 0);
-        Debug.Log("## transform.position.x" + transform.localPosition.x);
-        Debug.Log("## transform.position.y" + transform.localPosition.y);
+        
 
         if (TimeAfterSpawn>=SpawnRate) 
         {
