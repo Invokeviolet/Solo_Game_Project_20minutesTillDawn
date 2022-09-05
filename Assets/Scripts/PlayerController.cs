@@ -13,11 +13,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float MoveSpeed = 100f;
     [SerializeField] public  float absorbArange = 3f;
     [SerializeField] GameObject expItemObj; // 경험치 아이템
-
+    [SerializeField] Monster monster;
 
     public int curHp = 0;
-    public int curExpPoint = 0;
-    public int plusExpPoint = 10;
+    public float curExpPoint = 0;
+    public float plusExpPoint = 10f;
 
     bool isWalk;
     bool isDead;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     UIManager uiManager;
 
     SpriteRenderer ColorRenderer;
-    Rigidbody2D rigidbody2D;    
+    Rigidbody2D rigidbody2D;
 
     float TimeTrigger = 0f;
     float TimeRate = 1f;
@@ -100,9 +100,10 @@ public class PlayerController : MonoBehaviour
                 if (TimeTrigger >= TimeRate) 
                 {
                     TimeTrigger = 0;
+                    
                                         
                     //넉백당해야함
-                    DamageToMonster(myMonster.attackPower);
+                    DamageToMonster(monster.attackPower);
 
                 }
             }
@@ -125,12 +126,12 @@ public class PlayerController : MonoBehaviour
             {
                 curExpPoint = 0;
                 Level += LevelUp;
-                LevelText.text = "Level" + "     " + Level;
+                LevelText.text = "Level" + Level;
             }
         }
     }
 
-    void DamageToMonster(float damageValue)
+    public void DamageToMonster(float damageValue)
     {
         
         if (isDead == true) return;

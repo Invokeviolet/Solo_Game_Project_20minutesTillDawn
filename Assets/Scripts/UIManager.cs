@@ -7,8 +7,36 @@ public class UIManager : MonoBehaviour
 {
 
 
+    //---------------------------------------------------------------------------------------------
+    //싱글톤
+    #region 싱글턴
+
+    static UIManager instance = null;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<UIManager>();
+                if (instance == null)
+                {
+                    instance = new GameObject("UIManager").AddComponent<UIManager>();
+                }
+            }
+            return instance;
+        }
+    }
+    #endregion
+    //
+    //---------------------------------------------------------------------------------------------
+
+
     // 게임오버 이후 총 점수 계산을 위한 UI    
     [SerializeField] GameObject GameOverWindow;
+    [SerializeField] GameObject HomeWindow;
+    //[SerializeField] GameObject MenuWindow;
+
 
     [SerializeField] Text TimeScore; // (00:00) -> 시간정보
     [SerializeField] Text TimeScore_Add; // (초)단위 점수 
@@ -20,46 +48,72 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text AllScore_Add; // 총 점수
 
     // 시간 계산을 위한 UI
-    [SerializeField] Text TimeText;
-    [SerializeField] Slider Expslider;
-    [SerializeField] Image[] Heartimage;
-    [SerializeField] Image GameOverImage;
+    [SerializeField] Text TimeText; // 타이머 텍스트
+    [SerializeField] Slider ExpSlider; // Exp 슬라이더
+    [SerializeField] Image[] Heartimage; // 체력 이미지 배열
+    //[SerializeField] Image GameOverImage; // 게임오버 이미지
+    [SerializeField]ExpItem expitem;
 
+    int maxExpValue; // 슬라이더 최댓값
+   
 
     private PlayerController playerInfo;
-    private Monster monster;    
+    private Monster monster;
 
     float Time_S; // 초 계산
     float Time_M; // 분 계산
     float Stop_Time; // 시간 멈춤
-    float ExpValue; // 경험치 계산
+    
     float PlusExpSliderValue;
     int curHeart = 0;
     int maxHeart = 4;
 
-    bool isGameOver=false;
+    bool isGameOver = false;
 
     //HUD캔버스
     //WaveText 빈오브젝트 생성
     //
-    void UseBulletCount() //사용된 총알 갯수 / 최대 총알 갯수 표시
-    {
-
-    }
 
     private void Awake()
     {
+        //ExpSlider = GetComponent<Slider>();
         playerInfo = FindObjectOfType<PlayerController>();
-
+        //expitem = FindObjectOfType<ExpItem>();
         curHeart = maxHeart;
 
         PlusExpSliderValue = 0f;
-        Stop_Time = 0;
         Time_M = 20; // 분
         Time_S = 0; // 초
 
         GameOverWindow.SetActive(false);
+        maxExpValue = 100; // 경험치 최댓값
     }
+
+    private void Start()
+    {
+        ExpSlider.value = 0f; 
+    }
+
+    public void ExpUpdate() // 경험치 + 해주는 함수
+    {        
+
+        //ExpSlider.value += (PlusExp /float.MaxValue)*0.1f;//경험치 -> 소수형태로 변환 10(추가경험치)/100(최대 경험치)*0.1 ->1
+        ExpSlider.value =  expitem.ExpValue / float.MaxValue;
+        Debug.Log(expitem.ExpValue);
+        if (ExpSlider.value > 100f)
+        {
+            ResetExpSlider();
+        }
+
+        PlusExpSliderValue = ExpSlider.value ;
+    }
+
+    void UseBulletCount() //사용된 총알 갯수 / 최대 총알 갯수 표시
+    {
+
+    }
+    
+
 
     public void Update()
     {
@@ -70,31 +124,15 @@ public class UIManager : MonoBehaviour
 
         else { RestoreTime(); }
 
-        PlusExpSlider();
+        ExpUpdate();
+        
     }
 
-    public void PlusExpSlider() // 경험치 + 해주는 함수
-    {
-
-        /*if () // 몬스터를 잡았을때 경험치 아이템 획득 시
-        {
-            ExpValue += playerInfo.plusExpPoint;
-            Debug.Log("## ExpValue : " + ExpValue);
-
-            if (ExpValue > 100f)
-            {
-                ResetExpSlider();
-            }
-
-            PlusExpSliderValue = Expslider.value * Time.deltaTime;
-        }*/
-
-    }
+    
 
     public void ResetExpSlider() // 경험치가 일정 값만큼 쌓이면 초기화해주는 함수
     {
-
-        ExpValue = 0;
+        ExpSlider.value = 0;
     }
 
 
@@ -111,37 +149,37 @@ public class UIManager : MonoBehaviour
 
     public void BackTime() // 오른쪽 상단 UI 타이머 
     {
-        if (Time_S <= 0&& Time_M <= 0)
+        if (Time_S <= 0 && Time_M <= 0)
         {
-            
+
             TimeText.text = "00:00";
             isGameOver = true;
         }
-        if (!isGameOver) 
+        if (!isGameOver)
         {
             Time_S -= 1f * Time.deltaTime;
 
             if (Time_S * Time.deltaTime <= 0f)
-            {                
+            {
                 Time_S += 60f;
                 Time_M -= 1f;
             }
 
             if ((Time_M < 10f) && (Time_S < 10f))
-            {             
+            {
                 TimeText.text = "0" + (int)Time_M + ":" + "0" + (int)Time_S;
             }
 
             if ((Time_M < 10f) && (Time_S > 10f))
-            {             
+            {
                 TimeText.text = "0" + (int)Time_M + ":" + (int)Time_S;
             }
             if ((Time_M > 10f) && (Time_S > 10f))
-            {             
+            {
                 TimeText.text = (int)Time_M + ":" + (int)Time_S;
             }
             if ((Time_M > 10f) && (Time_S < 10f))
-            {             
+            {
                 TimeText.text = (int)Time_M + ":" + "0" + (int)Time_S;
             }
         }

@@ -10,15 +10,21 @@ public class HomeScene : MonoBehaviour
     {
         GameObject.Find("UI_Button").GetComponentInChildren<Text>().text = "Play";
     }
-    static public void Play()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
     static void QuitGame()
     {
         GameObject.Find("UI_Button").GetComponentInChildren<Text>().text = "Back";
     }
-    static void Home()
+
+    static public void Home() 
+    {
+        SceneManager.LoadScene("HomeScene");
+    }
+    static public void Play()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    
+    static public void Title()
     {
         SceneManager.LoadScene("TitleScene");
     }

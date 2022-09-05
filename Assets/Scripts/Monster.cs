@@ -7,11 +7,11 @@ public class Monster : MonoBehaviour
     [Header("[몬스터 정보]")]
     [SerializeField] GameObject monster;
     [SerializeField] int maxHp = 30; // 최대 체력
-    [SerializeField] public float attackPower = 1f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 1.5f; // 이동 속도
     [SerializeField] ItemSpawner itemSpawner = null;
-    //[SerializeField] GameObject ExpItem; // 떨굴 아이템
+    
+    public float attackPower = 1f; // 공격력
 
     int MonsterCount;
 

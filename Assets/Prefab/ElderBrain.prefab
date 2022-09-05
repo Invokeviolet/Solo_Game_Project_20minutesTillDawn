@@ -101,10 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 3511229972182257139}
   maxHp: 100
-  attackPower: 1
   attackRange: 5
   speed: 1.5
-  ExpItem: {fileID: 0}
+  itemSpawner: {fileID: 0}
+  attackPower: 1
   curHp: 0
 --- !u!70 &2504069968023468081
 CapsuleCollider2D:
