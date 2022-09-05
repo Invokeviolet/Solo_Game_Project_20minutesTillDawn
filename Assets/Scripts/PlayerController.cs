@@ -8,10 +8,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Text LevelText; // 게임 중 화면 중앙 상단에 표시 될 레벨
     [SerializeField] int Level = 1;
-    [SerializeField] int LevelUp=1;
+    [SerializeField] int LevelUp = 1;
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 100f;
-    [SerializeField] public  float absorbArange = 3f;
+    [SerializeField] public float absorbArange = 3f;
     [SerializeField] GameObject expItemObj; // 경험치 아이템
     [SerializeField] Monster monster;
 
@@ -97,17 +97,17 @@ public class PlayerController : MonoBehaviour
             // 새로운 적이 닿았을 때 또 Hp 감소하는 것을 체크해주어야 함. -> 유니런 참고
             if (collision.tag == "Mob")
             {
-                if (TimeTrigger >= TimeRate) 
+                if (TimeTrigger >= TimeRate)
                 {
                     TimeTrigger = 0;
-                    
-                                        
+
+
                     //넉백당해야함
                     DamageToMonster(monster.attackPower);
 
                 }
             }
-            
+
         }
     }
 
@@ -133,13 +133,13 @@ public class PlayerController : MonoBehaviour
 
     public void DamageToMonster(float damageValue)
     {
-        
+
         if (isDead == true) return;
 
         //Debug.Log("## curHp : "+ curHp);
 
         curHp -= (int)damageValue;
-        
+
         if (curHp <= 0)
         {
             //Debug.Log("## change curHp : " + curHp);
@@ -164,5 +164,5 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+
 }

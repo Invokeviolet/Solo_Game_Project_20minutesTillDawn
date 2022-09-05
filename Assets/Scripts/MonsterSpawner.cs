@@ -19,7 +19,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         MonsterCount = 0;
         
-        SpawnRate = Random.Range(2f, 6f);
+        SpawnRate = Random.Range(1f, 4f);
 
     }
 
@@ -38,8 +38,8 @@ public class MonsterSpawner : MonoBehaviour
 
 
         //몬스터가 생성될 위치
-        float Xpos = Random.Range(transform.localPosition.x - 20, transform.localPosition.x + 20);
-        float Ypos = Random.Range(transform.localPosition.y - 20, transform.localPosition.y + 20);
+        float Xpos = Random.Range(transform.localPosition.x - 10, transform.localPosition.x + 10);
+        float Ypos = Random.Range(transform.localPosition.y - 10, transform.localPosition.y + 10);
 
         Vector3 RandomPos = new Vector3(Xpos, Ypos, 0);
         

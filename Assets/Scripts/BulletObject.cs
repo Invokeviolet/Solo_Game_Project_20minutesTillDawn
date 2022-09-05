@@ -15,7 +15,7 @@ public class BulletObject : MonoBehaviour
     Rigidbody2D Rigidbody;
     Animator BulletAnimator;
 
-    bool isReload=false;
+    bool isReload = false;
     //Vector2 targetMonsterPos;
 
     public Transform myTarget { get; set; }
@@ -24,9 +24,9 @@ public class BulletObject : MonoBehaviour
         monster = FindObjectOfType<Monster>();
         Rigidbody = GetComponent<Rigidbody2D>();
         BulletAnimator = GetComponent<Animator>();
-        
+
         Curbullet = Maxbullet;
-        
+
     }
 
 
@@ -44,7 +44,7 @@ public class BulletObject : MonoBehaviour
             //BulletAnimator.SetBool("isReload", isReload);
 
         }
-        else 
+        else
         {
             isReload = false;
             //BulletAnimator.SetBool("isReload", isReload);
@@ -81,12 +81,12 @@ public class BulletObject : MonoBehaviour
 
     //Coroutine ReloadCoroutine = null;
 
-    IEnumerator ReloadBullet() 
+    IEnumerator ReloadBullet()
     {
         while (isReload == true)
         {
             yield return new WaitForSeconds(ReloadTime);
-            
+
             //재장전 슬라이더 움직이기
         }
     }

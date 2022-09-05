@@ -24,7 +24,9 @@ public class TitleScene : MonoBehaviour
     }
     static public void Play()
     {
-        SceneManager.LoadScene("HomeScene", LoadSceneMode.Additive);
+        //SceneManager.LoadScene("HomeScene");
+        SceneManager.LoadScene("HomeScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene("HomeScene", LoadSceneMode.Additive);
     }
 
     static public void Quit()

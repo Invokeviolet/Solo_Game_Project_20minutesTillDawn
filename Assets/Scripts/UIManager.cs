@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     // 게임오버 이후 총 점수 계산을 위한 UI    
     [SerializeField] GameObject GameOverWindow;
-    [SerializeField] GameObject HomeWindow;
+    //[SerializeField] GameObject HomeWindow;
     //[SerializeField] GameObject MenuWindow;
 
 
@@ -48,15 +48,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text AllScore_Add; // 총 점수
 
     // 시간 계산을 위한 UI
-    [SerializeField] Text TimeText; // 타이머 텍스트
     [SerializeField] Slider ExpSlider; // Exp 슬라이더
-    [SerializeField] Image[] Heartimage; // 체력 이미지 배열
-    //[SerializeField] Image GameOverImage; // 게임오버 이미지
+    [SerializeField] Slider ReloadSlider; // Reload 슬라이더
+    [SerializeField] Image[] Heartimage; // 체력 이미지 배열    
+    [SerializeField] Text TimeText; // 타이머 텍스트
+    [SerializeField] Text BulletCountText; // 총알 갯수
+
     [SerializeField]ExpItem expitem;
 
-    int maxExpValue; // 슬라이더 최댓값
-   
 
+
+    int maxExpValue; // 슬라이더 최댓값
+
+    private BulletObject bulletObject;
     private PlayerController playerInfo;
     private Monster monster;
 
@@ -78,6 +82,7 @@ public class UIManager : MonoBehaviour
     {
         //ExpSlider = GetComponent<Slider>();
         playerInfo = FindObjectOfType<PlayerController>();
+        bulletObject = FindObjectOfType<BulletObject>();
         //expitem = FindObjectOfType<ExpItem>();
         curHeart = maxHeart;
 
@@ -87,6 +92,7 @@ public class UIManager : MonoBehaviour
 
         GameOverWindow.SetActive(false);
         maxExpValue = 100; // 경험치 최댓값
+        //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
     }
 
     private void Start()
@@ -108,13 +114,7 @@ public class UIManager : MonoBehaviour
         PlusExpSliderValue = ExpSlider.value ;
     }
 
-    void UseBulletCount() //사용된 총알 갯수 / 최대 총알 갯수 표시
-    {
-
-    }
     
-
-
     public void Update()
     {
         CheckHeart();
@@ -125,10 +125,13 @@ public class UIManager : MonoBehaviour
         else { RestoreTime(); }
 
         ExpUpdate();
-        
+        //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
     }
 
-    
+    public void ResetReloadSlider() // 리로드 값 초기화
+    {
+        ReloadSlider.value = 0;
+    }
 
     public void ResetExpSlider() // 경험치가 일정 값만큼 쌓이면 초기화해주는 함수
     {

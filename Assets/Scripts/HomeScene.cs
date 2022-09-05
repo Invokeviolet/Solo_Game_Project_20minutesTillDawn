@@ -8,11 +8,11 @@ public class HomeScene : MonoBehaviour
 {
     static void StartGame()
     {
-        GameObject.Find("UI_Button").GetComponentInChildren<Text>().text = "Play";
+        GameObject.Find("Play_Button").GetComponentInChildren<Text>().text = "Play";
     }
     static void QuitGame()
     {
-        GameObject.Find("UI_Button").GetComponentInChildren<Text>().text = "Back";
+        GameObject.Find("Back_Button").GetComponentInChildren<Text>().text = "Back";
     }
 
     static public void Home() 
