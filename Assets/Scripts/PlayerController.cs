@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Text LevelText;
+    [SerializeField] int LevelValue = 1;
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 100f;
+    [SerializeField] public  float absorbArange = 3f;
     
     public int curHp = 0;
-    public int ExpPoint = 0;
+    public int curExpPoint = 0;
+    public int plusExpPoint = 10;
 
     bool isWalk;
     bool isDead;
@@ -17,6 +22,7 @@ public class PlayerController : MonoBehaviour
     Animator myAnimator;
     Monster myMonster;
     Wepon wepon;
+    ExpItem expItem;
 
     SpriteRenderer ColorRenderer;
     Rigidbody2D rigidbody2D;    
@@ -32,9 +38,10 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        myMonster = FindObjectOfType<Monster>();
+        expItem = FindObjectOfType<ExpItem>();
         myAnimator = GetComponent<Animator>();
         wepon = GetComponent<Wepon>();
-        myMonster = FindObjectOfType<Monster>();
         ColorRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -68,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     //이동할때 마우스가 x < 0 이면 그대로 보던 방향을 보고
     //이동없이 마우스가 x < 0 이면 뒤집어주기
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision) // 콜라이더 스테이 -> 몹
     {
 
         TimeTrigger += Time.deltaTime;
@@ -89,9 +96,30 @@ public class PlayerController : MonoBehaviour
 
                 }
             }
-
+            
         }
     }
+    /*private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector2 absorbDistance = transform.position - transform.position;
+
+        if (tag == "Player")
+        {
+            if (absorbDistance < absorbArange)
+            {
+
+            }
+            curExpPoint += ExpValue;
+            //플레이어의 사정거리 범위내에 있을때 아이템 흡수
+
+            curExpPoint += plusExpPoint;
+            if (curExpPoint >= 100)
+            {
+                curExpPoint = 0;
+                LevelText.text = "Level" + "     " + LevelValue;
+            }
+        }
+    }*/
 
     void DamageToMonster(float damageValue)
     {

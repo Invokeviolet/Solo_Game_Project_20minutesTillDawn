@@ -854,7 +854,7 @@ GameObject:
   - component: {fileID: 419681047}
   m_Layer: 0
   m_Name: Exp_Piece
-  m_TagString: Untagged
+  m_TagString: Exp_Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6911,7 +6911,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -168, y: 406}
-  m_SizeDelta: {x: 150, y: 70}
+  m_SizeDelta: {x: 160, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1132576081
 MonoBehaviour:

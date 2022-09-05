@@ -11,7 +11,7 @@ public class ExpItem : MonoBehaviour
     void Awake()
     {
         ExpValue = 10;
-        player = GetComponent<PlayerController>();
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -20,12 +20,6 @@ public class ExpItem : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (tag == "Player") 
-        { 
-            player.ExpPoint+= ExpValue;
-            
-        }
-    }
+    
+
 }
