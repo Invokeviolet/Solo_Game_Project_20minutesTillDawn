@@ -7885,13 +7885,13 @@ MonoBehaviour:
   AllScore: {fileID: 1250175078}
   AllScore_Add: {fileID: 2125353688}
   TimeText: {fileID: 1132576081}
-  ExpSlider: {fileID: 0}
+  ExpSlider: {fileID: 1705908483}
   Heartimage:
   - {fileID: 1520140679}
   - {fileID: 274855012}
   - {fileID: 826024930}
   - {fileID: 209883780}
-  GameOverImage: {fileID: 0}
+  expitem: {fileID: 1971192781, guid: 7f77421c5fb3f9840a795ffebfc144bf, type: 3}
 --- !u!224 &1343794969
 RectTransform:
   m_ObjectHideFlags: 0
