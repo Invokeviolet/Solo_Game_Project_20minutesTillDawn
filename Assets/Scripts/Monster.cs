@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
     [SerializeField] public float attackPower = 1f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 1.5f; // 이동 속도
-    [SerializeField] ItemSpawner itemSpawner;
+    [SerializeField] ItemSpawner itemSpawner = null;
     //[SerializeField] GameObject ExpItem; // 떨굴 아이템
 
     int MonsterCount;
@@ -103,6 +103,7 @@ public class Monster : MonoBehaviour
         if (curHp <= 0)
         {            
             curHp = 0;
+            
             nextState(State.DEATH);
         }
         else
@@ -141,7 +142,7 @@ public class Monster : MonoBehaviour
         NONE,
         IDLE,
         MOVE,
-        HIT,
+        HIT,        
         DEATH,
         Restore
 
@@ -199,12 +200,17 @@ public class Monster : MonoBehaviour
         nextState(State.IDLE);
         yield return null;
     }
+   /* IEnumerator ITEM_State()
+    {
+        
+
+    }*/
     IEnumerator DEATH_State() // 죽음 상태
     {
         MonsterCount++; // 몬스터 잡은 수 체크
-
         //경험치 아이템 떨구고
-        itemSpawner.ItemSpawn();
+        //ItemSpawner.instItem.ItemSpawn(transform.position);
+        itemSpawner.ItemSpawn(transform.position);
         Debug.Log("## 아이템 생성2222222222222222222222222");
 
         // 죽으면? 사라짐

@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30896cc71002d0148b21d14753088987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expItemPrefab: {fileID: 1971192781}
   ExpValue: 10
+  TargetMoveSpeed: 3
+  monsterInfo: {fileID: 4707314699858084404, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
 --- !u!212 &6081872881944829881
 SpriteRenderer:
   m_ObjectHideFlags: 0

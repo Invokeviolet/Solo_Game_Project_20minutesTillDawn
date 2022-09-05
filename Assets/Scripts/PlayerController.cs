@@ -135,13 +135,13 @@ public class PlayerController : MonoBehaviour
         
         if (isDead == true) return;
 
-        Debug.Log("## curHp : "+ curHp);
+        //Debug.Log("## curHp : "+ curHp);
 
         curHp -= (int)damageValue;
         
         if (curHp <= 0)
         {
-            Debug.Log("## change curHp : " + curHp);
+            //Debug.Log("## change curHp : " + curHp);
             curHp = 0;
             isDead = true;
             Die(); // 나중에 Enum 사용하여 정리

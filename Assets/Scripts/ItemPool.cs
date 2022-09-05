@@ -42,7 +42,7 @@ public class ItemPool : MonoBehaviour
         if (Itempooling.Count == 0)
         {
 
-            instItem = Instantiate(expItemPrefab, TargetObject.transform.position, Quaternion.identity);
+            instItem = Instantiate(expItemPrefab, pos, Quaternion.identity);
 
             return instItem;
 
@@ -61,7 +61,7 @@ public class ItemPool : MonoBehaviour
 
     public void DestroyItem(ExpItem expItem)
     {
-
+        //Debug.Log("들어왔니?");
         expItem.gameObject.SetActive(false);
         Itempooling.Enqueue(expItem); // pool 에 1개 늘어난다.
     }
