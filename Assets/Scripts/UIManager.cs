@@ -5,10 +5,29 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+
+
+    // 게임오버 이후 총 점수 계산을 위한 UI    
+    [SerializeField] GameObject GameOverWindow;
+
+    [SerializeField] Text TimeScore; // (00:00) -> 시간정보
+    [SerializeField] Text TimeScore_Add; // (초)단위 점수 
+    [SerializeField] Text MonsterScore; // (몬스터 잡은 수) -> 몬스터 정보
+    [SerializeField] Text MonsterScore_Add; // 몬스터 잡은 수
+    [SerializeField] Text LevelScore; // (레벨) -> 플레이어 정보
+    [SerializeField] Text LevelScore_Add; // 레벨 * 10    
+    [SerializeField] Text AllScore; // Earned
+    [SerializeField] Text AllScore_Add; // 총 점수
+
+    // 시간 계산을 위한 UI
     [SerializeField] Text TimeText;
     [SerializeField] Slider Expslider;
     [SerializeField] Image[] Heartimage;
+    [SerializeField] Image GameOverImage;
+
+
     private PlayerController playerInfo;
+    private Monster monster;    
 
     float Time_S; // 초 계산
     float Time_M; // 분 계산
@@ -23,7 +42,6 @@ public class UIManager : MonoBehaviour
     //HUD캔버스
     //WaveText 빈오브젝트 생성
     //
-    // 마우스 커서 오른쪽 아래, 왼쪽 상단 총알
     void UseBulletCount() //사용된 총알 갯수 / 최대 총알 갯수 표시
     {
 
@@ -37,18 +55,20 @@ public class UIManager : MonoBehaviour
 
         PlusExpSliderValue = 0f;
         Stop_Time = 0;
-        Time_M = 0; // 분
-        Time_S = 3; // 초
+        Time_M = 20; // 분
+        Time_S = 0; // 초
+
+        GameOverWindow.SetActive(false);
     }
 
     public void Update()
     {
         CheckHeart();
-
+        Debug.Log("isGameOver" + isGameOver);
         //if ((Time_M == 0f) && (Time_S == 0f)) { RestoreTime(); }
-        if (!isGameOver) { RestoreTime(); }
+        if (!isGameOver) { BackTime(); }
 
-        else { BackTime(); }
+        else { RestoreTime(); }
 
         PlusExpSlider();
     }
@@ -93,6 +113,7 @@ public class UIManager : MonoBehaviour
     {
         if (Time_S <= 0&& Time_M <= 0)
         {
+            
             TimeText.text = "00:00";
             isGameOver = true;
         }
@@ -101,26 +122,26 @@ public class UIManager : MonoBehaviour
             Time_S -= 1f * Time.deltaTime;
 
             if (Time_S * Time.deltaTime <= 0f)
-            {
+            {                
                 Time_S += 60f;
                 Time_M -= 1f;
             }
 
             if ((Time_M < 10f) && (Time_S < 10f))
-            {
+            {             
                 TimeText.text = "0" + (int)Time_M + ":" + "0" + (int)Time_S;
             }
 
             if ((Time_M < 10f) && (Time_S > 10f))
-            {
+            {             
                 TimeText.text = "0" + (int)Time_M + ":" + (int)Time_S;
             }
-            /*if ((Time_M > 10f) && (Time_S > 10f))
-            {
+            if ((Time_M > 10f) && (Time_S > 10f))
+            {             
                 TimeText.text = (int)Time_M + ":" + (int)Time_S;
-            }*/
+            }
             if ((Time_M > 10f) && (Time_S < 10f))
-            {
+            {             
                 TimeText.text = (int)Time_M + ":" + "0" + (int)Time_S;
             }
         }
@@ -136,11 +157,18 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void GameOver() 
-    { 
-        
-    }
+    public void GameOver()
+    {
+        GameOverWindow.SetActive(true);
 
+        //점수 계산 
+
+        //최종 마지막에 기록된 시간(초)
+        //최종 몬스터 잡은 수
+        //최종 레벨 *10
+        //--------------------------
+        //총 점수
+    }
 
 
 }

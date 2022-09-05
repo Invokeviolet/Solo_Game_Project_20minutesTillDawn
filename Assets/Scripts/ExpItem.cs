@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class ExpItem : MonoBehaviour
 {
-    [SerializeField] int ExpValue; //일반몹이 드롭
-    PlayerController player;
+    //[SerializeField] Transform TargetPos;
+    public int ExpValue = 10; // 경험치 값
+    public int TargetMoveSpeed = 3; // 플레이어에게로 가는 이동속도
+    Monster monsterInfo;
 
-    
     void Awake()
     {
-        ExpValue = 10;
-        player = FindObjectOfType<PlayerController>();
+        monsterInfo = FindObjectOfType<Monster>();
+       
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        //플레이어가 가까이 있으면 플레이어에게 이동
+        //transform.Translate(transform.position* TargetMoveSpeed * Time.deltaTime);
+
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
 }

@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Text LevelText;
-    [SerializeField] int LevelValue = 1;
+
+    [SerializeField] Text LevelText; // 게임 중 화면 중앙 상단에 표시 될 레벨
+    [SerializeField] int Level = 1;
+    [SerializeField] int LevelUp=1;
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 100f;
     [SerializeField] public  float absorbArange = 3f;
-    
+    [SerializeField] GameObject expItemObj; // 경험치 아이템
+
+
     public int curHp = 0;
     public int curExpPoint = 0;
     public int plusExpPoint = 10;
@@ -18,11 +22,15 @@ public class PlayerController : MonoBehaviour
     bool isWalk;
     bool isDead;
 
+
+    ExpItem expItem;
+
+
     Vector2 movePlayer;
     Animator myAnimator;
     Monster myMonster;
     Wepon wepon;
-    ExpItem expItem;
+    UIManager uiManager;
 
     SpriteRenderer ColorRenderer;
     Rigidbody2D rigidbody2D;    
@@ -35,9 +43,11 @@ public class PlayerController : MonoBehaviour
     {
         curHp = maxHp;
         gameObject.SetActive(true);
+        Debug.Log("## 경험치 : " + curExpPoint);
     }
     void Start()
     {
+        uiManager = FindObjectOfType<UIManager>();
         myMonster = FindObjectOfType<Monster>();
         expItem = FindObjectOfType<ExpItem>();
         myAnimator = GetComponent<Animator>();
@@ -47,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isWalk = false;
-        
+
     }
 
     void Update()
@@ -99,27 +109,26 @@ public class PlayerController : MonoBehaviour
             
         }
     }
-    /*private void OnCollisionEnter2D(Collision2D collision)
+
+    //경험치 아이템 먹었을 때 경험치 추가 -> 슬라이더에 값 옮겨주기
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 absorbDistance = transform.position - transform.position;
-
-        if (tag == "Player")
+        //Vector2 absorbDistance = transform.position - transform.position;
+        Debug.Log("## 경험치 먹었다");
+        if (tag == "Exp_Item")
         {
-            if (absorbDistance < absorbArange)
-            {
+            curExpPoint += expItem.ExpValue;
 
-            }
-            curExpPoint += ExpValue;
             //플레이어의 사정거리 범위내에 있을때 아이템 흡수
-
-            curExpPoint += plusExpPoint;
-            if (curExpPoint >= 100)
+            Debug.Log("## 경험치 : " + curExpPoint);
+            if (curExpPoint >= 100) //Exp가 100이 넘으면 레벨업
             {
                 curExpPoint = 0;
-                LevelText.text = "Level" + "     " + LevelValue;
+                Level += LevelUp;
+                LevelText.text = "Level" + "     " + Level;
             }
         }
-    }*/
+    }
 
     void DamageToMonster(float damageValue)
     {
@@ -149,16 +158,10 @@ public class PlayerController : MonoBehaviour
 
             //죽을때? 기본 애니메이션들은 작동하지만 위치이동 불가. 캐릭터 오브젝트가 위에서부터 아래로 점점 사라짐
             gameObject.SetActive(false);
-
+            uiManager.GameOver();
         }
 
     }
 
-    void GameOver()
-    {
-        //점수 표시되는 창 생성 -> 재시작 또는 홈으로 돌아가는 버튼
-        //재시작 누르면 게임씬 새로 다시 출력
-        //홈으로 누르면 타이틀씬 출력
-        //데이터에 포인트 값 누적해서 저장되어야 하고, 그 값이
-    }
+    
 }

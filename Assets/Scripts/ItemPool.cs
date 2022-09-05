@@ -28,25 +28,22 @@ public class ItemPool : MonoBehaviour
     //
     //---------------------------------------------------------------------------------------------
 
-    [SerializeField] Monster itemSpawner;    
+    [SerializeField] ExpItem expItemPrefab;    
 
     Queue<ExpItem> Itempooling = new Queue<ExpItem>();
-   
 
-    public ExpItem CreateMonster(Vector3 pos, ExpItem expItem)
+    [SerializeField] Transform TargetObject; // 아이템이 어느 위치에 생성될지 // 아이템 스포너 역할
+
+    public ExpItem CreateItem(Vector3 pos)
     {
 
         ExpItem instItem = null;
         //처음에는 아무것도 없으니 생성하자
         if (Itempooling.Count == 0)
         {
-            //Debug.Log("## 몬스터 생성중...");
 
-            instItem = Instantiate(expItem, Vector3.zero, Quaternion.identity, itemSpawner.transform);
+            instItem = Instantiate(expItemPrefab, TargetObject.transform.position, Quaternion.identity);
 
-            // 로드한 프리팹을 이용해서 인스턴트 객체 한개를 만든다.
-
-            //Debug.Log("## instMob : "+ instMob.name);
             return instItem;
 
         }

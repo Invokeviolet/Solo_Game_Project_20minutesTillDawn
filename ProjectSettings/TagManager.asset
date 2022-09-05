@@ -9,6 +9,7 @@ TagManager:
   - Mob
   - UI_Button
   - Exp_Item
+  - GameOver_Window
   layers:
   - Default
   - TransparentFX

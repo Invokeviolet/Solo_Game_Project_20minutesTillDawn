@@ -17,6 +17,7 @@ public class GameScene : MonoBehaviour
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
     }
+    
     static void Home()
     {
         SceneManager.LoadScene("GameHome");

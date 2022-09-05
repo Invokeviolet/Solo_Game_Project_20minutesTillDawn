@@ -10,7 +10,10 @@ public class Monster : MonoBehaviour
     [SerializeField] public float attackPower = 1f; // 공격력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 1.5f; // 이동 속도
-    
+    [SerializeField] ItemSpawner itemSpawner;
+    //[SerializeField] GameObject ExpItem; // 떨굴 아이템
+
+    int MonsterCount;
 
     public int curHp = 0; // 현재 체력
     bool isDead { get { return (curHp <= 0); } }
@@ -25,30 +28,30 @@ public class Monster : MonoBehaviour
     BulletObject bulletobj;
     SpriteRenderer MonsterRenderer;
     Rigidbody2D Rigidbody;
-
+    
      SpriteRenderer ColorRenderer; // 상태를 변경할 때 사용하기 위한 스프라이트 렌더러
     //public int MyPosIdx { get; set; } = -1; // 내 영역의 인덱스
 
     private void Awake()
     {
+        bulletobj = FindObjectOfType<BulletObject>();
+        targetPlayer = FindObjectOfType<PlayerController>();
         myAnimator = GetComponentInChildren<Animator>();
         monCC = GetComponent<CapsuleCollider2D>();
-        targetPlayer = FindObjectOfType<PlayerController>();
         Rigidbody = GetComponent<Rigidbody2D>();
-        bulletobj = FindObjectOfType<BulletObject>();
-
-        //isAttacked = false;
-        //myAnimator.SetBool("isAttacked", isAttacked);
+        MonsterRenderer = GetComponent<SpriteRenderer>();
+        itemSpawner= FindObjectOfType<ItemSpawner>();
     }
 
     private void OnEnable()
     {
         curHp = maxHp;
-        MonsterRenderer = GetComponent<SpriteRenderer>();
+        //ExpItem.SetActive(false);
+        
     }
     void Start()
     {
-       
+        MonsterCount = 0;
     }
     void Update()
     {
@@ -198,9 +201,15 @@ public class Monster : MonoBehaviour
     }
     IEnumerator DEATH_State() // 죽음 상태
     {
+        MonsterCount++; // 몬스터 잡은 수 체크
+
+        //경험치 아이템 떨구고
+        itemSpawner.ItemSpawn();
+        Debug.Log("## 아이템 생성2222222222222222222222222");
+
         // 죽으면? 사라짐
         gameObject.SetActive(false);
-        yield return null;
+        yield return null;       
 
         //Recycle(gameObject);
         gameObject.Recycle();
