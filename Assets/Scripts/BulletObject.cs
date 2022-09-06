@@ -32,11 +32,11 @@ public class BulletObject : MonoBehaviour
     {
         BulletMove();
 
-        if (Curbullet <= Maxbullet)
+        if (Curbullet <= 0)
         {
             StartCoroutine(ReloadBullet());
             isReload = true;
-        }
+        }        
         else
         {
             isReload = false;
@@ -46,15 +46,13 @@ public class BulletObject : MonoBehaviour
     public void BulletMove()
     {
         transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}       
-        //gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); 
-        //gameObject.GetComponent<Rigidbody2D>().AddForce(dir * AttackSpeed, ForceMode2D.Impulse);
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         if ((collision.tag == "Mob") || (collision.tag == "OutBox"))
         {
-            //Debug.Log("## 총알 데미지 들어가는 곳");
 
             Curbullet--; // 현재 총알 갯수 -1
 

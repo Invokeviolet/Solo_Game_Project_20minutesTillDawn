@@ -54,11 +54,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text TimeText; // 타이머 텍스트
     [SerializeField] Text BulletCountText; // 총알 갯수
 
-    [SerializeField]ExpItem expitem;
+    [SerializeField] ExpItem expitem;
 
-
-
-    int maxExpValue; // 슬라이더 최댓값
 
     private BulletObject bulletObject;
     private PlayerController playerInfo;
@@ -67,8 +64,14 @@ public class UIManager : MonoBehaviour
     float Time_S; // 초 계산
     float Time_M; // 분 계산
     float Stop_Time; // 시간 멈춤
-    
-    float PlusExpSliderValue;
+
+    int curBullet; // 현재 총알 갯수
+    int maxBullet = 6; // 최대 총알 갯수
+
+
+    float maxExpValue; // 슬라이더 최댓값
+
+    // 하트 계산을 위한 값
     int curHeart = 0;
     int maxHeart = 4;
 
@@ -86,46 +89,57 @@ public class UIManager : MonoBehaviour
         //expitem = FindObjectOfType<ExpItem>();
         curHeart = maxHeart;
 
-        PlusExpSliderValue = 0f;
         Time_M = 20; // 분
         Time_S = 0; // 초
 
         GameOverWindow.SetActive(false);
-        maxExpValue = 100; // 경험치 최댓값
+        maxExpValue = 100f; // 경험치 최댓값
         //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
+
+        ExpSlider.value = 0f;
+
     }
 
     private void Start()
     {
-        ExpSlider.value = 0f; 
+
     }
 
-    public void ExpUpdate() // 경험치 + 해주는 함수
-    {        
 
-        //ExpSlider.value += (PlusExp /float.MaxValue)*0.1f;//경험치 -> 소수형태로 변환 10(추가경험치)/100(최대 경험치)*0.1 ->1
-        ExpSlider.value =  expitem.ExpValue / float.MaxValue;
-        Debug.Log(expitem.ExpValue);
-        if (ExpSlider.value > 100f)
-        {
-            ResetExpSlider();
-        }
-
-        PlusExpSliderValue = ExpSlider.value ;
-    }
-
-    
     public void Update()
     {
         CheckHeart();
-        Debug.Log("isGameOver" + isGameOver);
-        //if ((Time_M == 0f) && (Time_S == 0f)) { RestoreTime(); }
+
+
         if (!isGameOver) { BackTime(); }
 
         else { RestoreTime(); }
 
-        ExpUpdate();
+
         //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
+    }
+
+
+    public void BulletCount(int curCount)
+    {
+        BulletCountText.text = ("00" + curCount + "/" + "00" + maxBullet);
+
+    }
+
+
+
+    public void ExpUpdate(float ExpValue) // 경험치 + 해주는 함수
+    {
+
+        //ExpSlider.value += (PlusExp /float.MaxValue)*0.1f;//경험치 -> 소수형태로 변환 10(추가경험치)/100(최대 경험치)*0.1 ->1
+
+        ExpSlider.value += ExpValue;
+
+        if (ExpSlider.value >= maxExpValue)
+        {
+            ResetExpSlider(); // 최댓값 초기화 해주기 위함 -> 초기화가 안됨
+        }
+
     }
 
     public void ResetReloadSlider() // 리로드 값 초기화
@@ -135,7 +149,7 @@ public class UIManager : MonoBehaviour
 
     public void ResetExpSlider() // 경험치가 일정 값만큼 쌓이면 초기화해주는 함수
     {
-        ExpSlider.value = 0;
+        ExpSlider.value = 0f;
     }
 
 
@@ -191,9 +205,6 @@ public class UIManager : MonoBehaviour
     void RestoreTime()
     {
 
-        //Stop_Time = Time_M;
-
-        //TimeText.text = "0" + (int)Stop_Time + ":" + "0" + (int)Stop_Time;
         TimeText.text = "00" + ":" + "00";
 
     }

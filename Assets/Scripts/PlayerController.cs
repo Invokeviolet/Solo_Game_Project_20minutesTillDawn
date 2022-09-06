@@ -107,28 +107,8 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-    }
-
-    //경험치 아이템 먹었을 때 경험치 추가 -> 슬라이더에 값 옮겨주기
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Vector2 absorbDistance = transform.position - transform.position;
-        Debug.Log("## 경험치 먹었다");
-        if (tag == "Exp_Item")
-        {
-            curExpPoint += expItem.ExpValue;
-
-            //플레이어의 사정거리 범위내에 있을때 아이템 흡수
-            Debug.Log("## 경험치 : " + curExpPoint);
-            if (curExpPoint >= 100) //Exp가 100이 넘으면 레벨업
-            {
-                curExpPoint = 0;
-                Level += LevelUp;
-                LevelText.text = "Level" + Level;
-            }
-        }
-    }
-
+    }  
+   
     public void DamageToMonster(float damageValue)
     {
 

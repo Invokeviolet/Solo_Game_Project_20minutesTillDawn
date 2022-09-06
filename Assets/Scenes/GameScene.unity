@@ -9689,10 +9689,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1971210191, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+      propertyPath: bulletObject
+      value: 
+      objectReference: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
     - target: {fileID: 2506211432469083006, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
       propertyPath: LevelText
       value: 
       objectReference: {fileID: 2118380528}
+    - target: {fileID: 2506211432469083006, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+      propertyPath: MoveSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2506211432469083007, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
       propertyPath: m_Name
       value: Player

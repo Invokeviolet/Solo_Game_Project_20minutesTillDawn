@@ -200,7 +200,7 @@ public class Monster : MonoBehaviour
         //경험치 아이템 떨구고
         //ItemSpawner.instItem.ItemSpawn(transform.position);
         itemSpawner.ItemSpawn(transform.position);
-        Debug.Log("## 아이템 생성2222222222222222222222222");
+        //Debug.Log("## 아이템 생성2222222222222222222222222");
 
         // 죽으면? 사라짐
         gameObject.SetActive(false);
