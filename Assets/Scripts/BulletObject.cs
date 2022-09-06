@@ -11,14 +11,14 @@ public class BulletObject : MonoBehaviour
     public float BulletDamage = 20f; // 총알 데미지
 
     [SerializeField] Monster monster; // 몬스터 정보를 받아올 몬스터 선언
-    [SerializeField] BulletSpawner bulletSpawner; // 스포너 정보 가져오기
+    
     [SerializeField] BulletObject BulletPrefab; // 스포너 정보 가져오기
 
     bool isReload = false; // 재장전 중인지?
     bool isShoot = true; // 발사중인가?
     private void Start()
     {
-        bulletSpawner = FindObjectOfType<BulletSpawner>(); // 스포너 스크립트를 찾아와
+        
         monster = FindObjectOfType<Monster>(); // 몬스터 스크립트를 찾아와        
         Curbullet = Maxbullet; // 현재 불릿 갯수를 최대 갯수로 초기화
     }
@@ -26,11 +26,11 @@ public class BulletObject : MonoBehaviour
 
     void Update()
     {
+        BulletMove();
 
         if (Curbullet <= Maxbullet)
         {
-            ReloadBullet();
-
+            //StartCoroutine(ReloadBullet());
             isReload = true;
         }
         else
@@ -39,11 +39,10 @@ public class BulletObject : MonoBehaviour
         }
     }
 
-    public void Shoot()
-    {
-        //transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime);
+    public void BulletMove()
+    {        
         
-            gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}
+        gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,21 +54,18 @@ public class BulletObject : MonoBehaviour
 
             Curbullet--; // 현재 총알 갯수 -1
 
-            gameObject.SetActive(false); // 충돌하면 불렛 비활성화
-
             BulletPooling.Instance.DestroyBullet(BulletPrefab); // 자기자신을 풀링에 다시 넣음
 
-            gameObject.Reload(); // 총알 재사용함
         }
 
     }
 
 
-    IEnumerator ReloadBullet()
+    /*IEnumerator ReloadBullet()
     {
-        while (isReload == true)
+        if (isReload == true)
         {
             yield return new WaitForSeconds(ReloadTime);
         }
-    }
+    }*/
 }

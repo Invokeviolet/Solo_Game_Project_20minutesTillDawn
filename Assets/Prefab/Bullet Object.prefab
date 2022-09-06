@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7931577082339715082}
   - component: {fileID: 4050998752867619581}
   m_Layer: 0
-  m_Name: Player Bullet
+  m_Name: Bullet Object
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,3 +142,5 @@ MonoBehaviour:
   AttackSpeed: 10
   BulletDamage: 20
   monster: {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
+  bulletSpawner: {fileID: 0}
+  BulletPrefab: {fileID: 4050998752867619581}

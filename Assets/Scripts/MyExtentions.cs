@@ -10,9 +10,5 @@ public static class MyExtentions
         MonsterPooling.Instance.DestroyMonster(mob); // 몬스터 풀링에서 죽었던 몬스터 객체 생성
     }
 
-    public static void Reload(this GameObject go) 
-    {
-        BulletObject bull = go.GetComponent<BulletObject>();
-        BulletPooling.Instance.DestroyBullet(bull);
-    }
+    
 }
