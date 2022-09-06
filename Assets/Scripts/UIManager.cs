@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
         //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
 
         ExpSlider.value = 0f;
-
+        //ReloadSlider.value = 0f;
     }
 
     private void Start()
@@ -123,9 +123,17 @@ public class UIManager : MonoBehaviour
     public void BulletCount(int curCount)
     {
         BulletCountText.text = ("00" + curCount + "/" + "00" + maxBullet);
-
+        if (curCount < 0)
+        {
+            curCount = 0;
+        }
     }
 
+    public void bulletCheck(float Reload)
+    {
+        Reload-= Time.deltaTime;
+        ReloadSlider.value = Reload;
+    }
 
 
     public void ExpUpdate(float ExpValue) // 경험치 + 해주는 함수
