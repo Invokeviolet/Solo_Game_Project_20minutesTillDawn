@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class DamageTextMgr : MonoBehaviour 
 {
     static DamageTextMgr instance;
-    public static DamageTextMgr Inst
+
+    //싱글턴
+    #region
+    public static DamageTextMgr Inst // 데미지 텍스트를 싱글턴으로 생성
     {
         get 
         {
@@ -21,6 +24,8 @@ public class DamageTextMgr : MonoBehaviour
             return instance;
         }
     }
+    #endregion
+
 
     Canvas canvas = null;
     private void Awake()

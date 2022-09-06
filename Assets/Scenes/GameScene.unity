@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &58390137
 Transform:
   m_ObjectHideFlags: 0
@@ -1486,7 +1486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &539282743
 Transform:
   m_ObjectHideFlags: 0
@@ -2508,7 +2508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &890602677
 Transform:
   m_ObjectHideFlags: 0
@@ -6756,6 +6756,75 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &987865104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1226074375}
+    m_Modifications:
+    - target: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 1180702326}
+    - target: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: bulletSpawner
+      value: 
+      objectReference: {fileID: 1226074376}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715573, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715575, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_Name
+      value: Player Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931577082339715575, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
 --- !u!1 &989257722
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,8 +7291,6 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
-  playerPos: {fileID: 737197278}
-  MonsterCount: 10
 --- !u!1 &1083374771
 GameObject:
   m_ObjectHideFlags: 0
@@ -7381,6 +7448,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089472520}
   m_CullTransparentMesh: 1
+--- !u!1 &1106614586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106614588}
+  - component: {fileID: 1106614587}
+  m_Layer: 0
+  m_Name: BulletPooling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1106614587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106614586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7956bda3880764c9dbe49570fa1e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletSpawner: {fileID: 1226074374}
+--- !u!4 &1106614588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106614586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.9726386, y: 3.639264, z: -10.123955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1108538443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7428,7 +7540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1114709982
 Transform:
   m_ObjectHideFlags: 0
@@ -7894,6 +8006,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179171557}
   m_CullTransparentMesh: 1
+--- !u!114 &1180702326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+  m_PrefabInstance: {fileID: 987865104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3ede31b92e6c848a289b8a695aec75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1226074374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1971210189, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+  m_PrefabInstance: {fileID: 2506211432121962425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1226074375 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1971210190, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+  m_PrefabInstance: {fileID: 2506211432121962425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1226074376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1971210191, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+  m_PrefabInstance: {fileID: 2506211432121962425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226074374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d08f95dea4ffb48970feaf3f65ec1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1250175076
 GameObject:
   m_ObjectHideFlags: 0
@@ -8921,8 +9065,6 @@ MonoBehaviour:
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
   - {fileID: 9047092878498943840, guid: 7735f1014a0ef6d4fae84d5cb8f09d3f, type: 3}
-  playerPos: {fileID: 737197278}
-  MonsterCount: 10
 --- !u!1 &1646061378
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,8 +9333,6 @@ MonoBehaviour:
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
   - {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
-  playerPos: {fileID: 737197278}
-  MonsterCount: 10
 --- !u!1 &1754337609
 GameObject:
   m_ObjectHideFlags: 0
@@ -9646,8 +9786,6 @@ MonoBehaviour:
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
   - {fileID: 1831475344835812674, guid: e8f973539dd9cc1479991b5d656cb9da, type: 3}
-  playerPos: {fileID: 737197278}
-  MonsterCount: 10
 --- !u!1 &2062592012
 GameObject:
   m_ObjectHideFlags: 0
@@ -9896,6 +10034,10 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1971210191, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
     - target: {fileID: 2506211432469083006, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
       propertyPath: monster
       value: 

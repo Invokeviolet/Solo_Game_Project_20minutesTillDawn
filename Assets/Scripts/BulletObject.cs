@@ -4,90 +4,72 @@ using UnityEngine;
 
 public class BulletObject : MonoBehaviour
 {
-    [SerializeField] float ReloadTime = 1.0f;
-    [SerializeField] public int Maxbullet = 6;
-    [SerializeField] public int Curbullet = 0;
-    [SerializeField] float AttackSpeed = 10.0f;
-    public float BulletDamage = 20f;
+    [SerializeField] float ReloadTime = 1.0f; // 재장전 시간
+    [SerializeField] public int Maxbullet = 6; // 최대 총알 갯수
+    [SerializeField] public int Curbullet = 0; // 현재 총알 갯수
+    [SerializeField] float AttackSpeed = 10.0f; // 공격 속도
+    public float BulletDamage = 20f; // 총알 데미지
 
-    [SerializeField] Monster monster;
+    [SerializeField] Monster monster; // 몬스터 정보를 받아올 몬스터 선언
+    [SerializeField] BulletSpawner bulletSpawner; // 스포너 정보 가져오기
+    [SerializeField] BulletObject BulletPrefab; // 스포너 정보 가져오기
 
-    Rigidbody2D Rigidbody;
-    Animator BulletAnimator;
-
-    bool isReload = false;
-    //Vector2 targetMonsterPos;
-
-    public Transform myTarget { get; set; }
+    bool isReload = false; // 재장전 중인지?
+    bool isShoot = true; // 발사중인가?
     private void Start()
     {
-        monster = FindObjectOfType<Monster>();
-        Rigidbody = GetComponent<Rigidbody2D>();
-        BulletAnimator = GetComponent<Animator>();
-
-        Curbullet = Maxbullet;
-
+        bulletSpawner = FindObjectOfType<BulletSpawner>(); // 스포너 스크립트를 찾아와
+        monster = FindObjectOfType<Monster>(); // 몬스터 스크립트를 찾아와        
+        Curbullet = Maxbullet; // 현재 불릿 갯수를 최대 갯수로 초기화
     }
 
 
     void Update()
     {
-        // 키입력이 없을때는 총알 없기
-        Shoot();
 
         if (Curbullet <= Maxbullet)
         {
             ReloadBullet();
 
             isReload = true;
-            //재장전 애니메이션
-            //BulletAnimator.SetBool("isReload", isReload);
-
         }
         else
         {
             isReload = false;
-            //BulletAnimator.SetBool("isReload", isReload);
-
         }
     }
-
 
     public void Shoot()
     {
-
-        //gameObject.SetActive(true); // 총알 활성화
-        transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime);
+        //transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime);
+        
+            gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}
 
     }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Mob")
-        {
-            Debug.Log("## 총알 데미지 들어가는 곳");
 
-            Curbullet--;
-            Destroy(gameObject);
-        }
-        if (collision.tag == "OutBox")
+        if ((collision.tag == "Mob") || (collision.tag == "OutBox"))
         {
-            Destroy(gameObject); // 나중에 재사용할 부분
+            //Debug.Log("## 총알 데미지 들어가는 곳");
+
+            Curbullet--; // 현재 총알 갯수 -1
+
+            gameObject.SetActive(false); // 충돌하면 불렛 비활성화
+
+            BulletPooling.Instance.DestroyBullet(BulletPrefab); // 자기자신을 풀링에 다시 넣음
+
+            gameObject.Reload(); // 총알 재사용함
         }
 
     }
 
-
-    //Coroutine ReloadCoroutine = null;
 
     IEnumerator ReloadBullet()
     {
         while (isReload == true)
         {
             yield return new WaitForSeconds(ReloadTime);
-
-            //재장전 슬라이더 움직이기
         }
     }
 }

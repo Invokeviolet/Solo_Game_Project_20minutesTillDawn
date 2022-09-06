@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [Header("[몬스터 정보]")]
-    [SerializeField] GameObject monster;
+    [SerializeField] GameObject monster; // 몬스터
     [SerializeField] int maxHp = 30; // 최대 체력
     [SerializeField] float attackRange = 0.1f; // 공격 가능 범위
     [SerializeField] float speed = 1.5f; // 이동 속도
@@ -13,7 +13,7 @@ public class Monster : MonoBehaviour
     
     public float attackPower = 1f; // 공격력
 
-    int MonsterCount;
+    int MonsterCount; // 몬스터의 카운트를 세어주는 역할 -> 최종 점수 체크때 사용 필요    
 
     public int curHp = 0; // 현재 체력
     bool isDead { get { return (curHp <= 0); } }
@@ -21,22 +21,19 @@ public class Monster : MonoBehaviour
 
     Vector3 direction; //움직일 위치값을 할당하기 위한 선언
 
-    //public GameObject targetPlayer;
-    PlayerController targetPlayer = null;
-    Animator myAnimator = null;
+    PlayerController targetPlayer = null;    
     CapsuleCollider2D monCC = null;
     BulletObject bulletobj;
     SpriteRenderer MonsterRenderer;
     Rigidbody2D Rigidbody;
     
      SpriteRenderer ColorRenderer; // 상태를 변경할 때 사용하기 위한 스프라이트 렌더러
-    //public int MyPosIdx { get; set; } = -1; // 내 영역의 인덱스
+   
 
     private void Awake()
     {
         bulletobj = FindObjectOfType<BulletObject>();
-        targetPlayer = FindObjectOfType<PlayerController>();
-        myAnimator = GetComponentInChildren<Animator>();
+        targetPlayer = FindObjectOfType<PlayerController>();        
         monCC = GetComponent<CapsuleCollider2D>();
         Rigidbody = GetComponent<Rigidbody2D>();
         MonsterRenderer = GetComponent<SpriteRenderer>();
@@ -46,7 +43,7 @@ public class Monster : MonoBehaviour
     private void OnEnable()
     {
         curHp = maxHp;
-        //ExpItem.SetActive(false);
+        
         
     }
     void Start()
@@ -57,8 +54,8 @@ public class Monster : MonoBehaviour
     {
         MoveTarget();
         if (isDead) return;
-        
     }
+
     void MoveTarget()
     {
         if (targetPlayer == null) { return; }
@@ -95,7 +92,6 @@ public class Monster : MonoBehaviour
         //데미지 영향으로 본인의 HP가 변경
         curHp -= (int)dmgInfo;
 
-        //Debug.Log("## curHp : " + curHp+ "## dmgInfo : " + dmgInfo);
 
         //데미지 텍스트 출력
         //DamageTextMgr.Inst.AddText(dmgInfo, transform.position, transform.position); // 텍스트가 생성될 위치, 사라질 위치
@@ -123,9 +119,6 @@ public class Monster : MonoBehaviour
 
             TransferDamage(20f); // 총알 데미지 값
 
-            //isAttacked = true;
-
-            //myAnimator.SetBool("isAttacked", isAttacked);
         }
     }
     //인터페이스를 써서 공격메소드 따로 만들것
@@ -162,7 +155,7 @@ public class Monster : MonoBehaviour
 
     IEnumerator IDLE_State() // 대기 상태
     {
-        //myAnimator.SetBool("move",false);
+        
 
         while (isDead == false)
         {
@@ -178,7 +171,7 @@ public class Monster : MonoBehaviour
     }
     IEnumerator MOVE_State() // 이동 상태
     {
-        //myAnimator.SetBool("move", true);
+       
         while (isDead == false)
         {
             //targetPlayer = FindObjectOfType<PlayerController>();
@@ -200,11 +193,7 @@ public class Monster : MonoBehaviour
         nextState(State.IDLE);
         yield return null;
     }
-   /* IEnumerator ITEM_State()
-    {
-        
-
-    }*/
+   
     IEnumerator DEATH_State() // 죽음 상태
     {
         MonsterCount++; // 몬스터 잡은 수 체크
@@ -215,10 +204,11 @@ public class Monster : MonoBehaviour
 
         // 죽으면? 사라짐
         gameObject.SetActive(false);
-        yield return null;       
+        yield return null;
 
-        //Recycle(gameObject);
-        gameObject.Recycle();
+        MonsterCount++; // 몬스터가 죽으면 카운트 + 1 -> 나중에 점수체크때 사용됨
+
+        gameObject.Recycle(); // 몬스터를 재사용함
 
         //MonsterPooling.Instance.DestroyMonster(this);
     }
