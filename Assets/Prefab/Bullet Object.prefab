@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7931577082339715575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07999999, y: 0.07999999, z: 0.07999999}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -139,8 +139,7 @@ MonoBehaviour:
   ReloadTime: 1
   Maxbullet: 6
   Curbullet: 0
-  AttackSpeed: 10
+  AttackSpeed: 3
   BulletDamage: 20
   monster: {fileID: 3553340982366561554, guid: 6fda9683e919a1e48963f65571ab1b36, type: 3}
-  bulletSpawner: {fileID: 0}
   BulletPrefab: {fileID: 4050998752867619581}

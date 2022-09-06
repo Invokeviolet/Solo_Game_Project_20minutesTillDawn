@@ -22,7 +22,7 @@ public class MouseFollowText : MonoBehaviour
     }
     void Init_Cursor()
     {        
-        transform_cursor.pivot = Vector2.up;
+        transform_cursor.pivot = Vector2.up; // 마우스커서의 피봇
 
         if (transform_cursor.GetComponent<Graphic>())
         {

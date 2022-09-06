@@ -32,13 +32,13 @@ public class BulletPooling : MonoBehaviour
     [SerializeField] GameObject BulletSpawner; // 오브젝트 지정
     [SerializeField] BulletObject BulletPrefab; // 총알 프리팹
 
-    public BulletObject CreateBullet(Vector3 pos) //불렛오브젝트 형태의 총알생성메서드(받아올 위치값, 불렛오브젝트 형태)
+    public BulletObject CreateBullet(Vector3 pos, Quaternion rot) //불렛오브젝트 형태의 총알생성메서드(받아올 위치값, 불렛오브젝트 형태)
     {
         BulletObject instbullet = null; // 불렛오브젝트의 객체 null으로 초기화
 
         if (pool.Count == 0) // 풀 안에 오브젝트의 갯수가 0 이면
         {
-            instbullet = Instantiate(BulletPrefab, pos, Quaternion.identity); // instbullet에 객체를 생성해주는 값을 할당함
+            instbullet = Instantiate(BulletPrefab, pos, rot); // instbullet에 객체를 생성해주는 값을 할당함
             BulletPrefab.gameObject.SetActive(true);
 
             return instbullet; // 생성한 객체를 반환 -> 풀로 반환?
@@ -46,7 +46,7 @@ public class BulletPooling : MonoBehaviour
 
         instbullet = pool.Dequeue(); // 풀에서 꺼내쓴다.
         instbullet.transform.position = pos; // 위치는 위에서 지정한 위치값으로
-        instbullet.transform.rotation = Quaternion.identity; // 회전값도
+        instbullet.transform.rotation = rot; // 회전값도
         instbullet.gameObject.SetActive(true); // 게임오브젝트 활성화
 
         return instbullet; // 객체를 반환

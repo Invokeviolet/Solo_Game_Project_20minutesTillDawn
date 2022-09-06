@@ -7,18 +7,22 @@ public class BulletObject : MonoBehaviour
     [SerializeField] float ReloadTime = 1.0f; // 재장전 시간
     [SerializeField] public int Maxbullet = 6; // 최대 총알 갯수
     [SerializeField] public int Curbullet = 0; // 현재 총알 갯수
-    [SerializeField] float AttackSpeed = 10.0f; // 공격 속도
+    [SerializeField] public float AttackSpeed = 10.0f; // 공격 속도
     public float BulletDamage = 20f; // 총알 데미지
 
     [SerializeField] Monster monster; // 몬스터 정보를 받아올 몬스터 선언
-    
+
     [SerializeField] BulletObject BulletPrefab; // 스포너 정보 가져오기
+
+
+    public Transform myTarget { get; set; }
+
+    //Vector2 mouseMovePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y).normalized;
 
     bool isReload = false; // 재장전 중인지?
     bool isShoot = true; // 발사중인가?
     private void Start()
     {
-        
         monster = FindObjectOfType<Monster>(); // 몬스터 스크립트를 찾아와        
         Curbullet = Maxbullet; // 현재 불릿 갯수를 최대 갯수로 초기화
     }
@@ -30,7 +34,7 @@ public class BulletObject : MonoBehaviour
 
         if (Curbullet <= Maxbullet)
         {
-            //StartCoroutine(ReloadBullet());
+            StartCoroutine(ReloadBullet());
             isReload = true;
         }
         else
@@ -40,10 +44,10 @@ public class BulletObject : MonoBehaviour
     }
 
     public void BulletMove()
-    {        
-        
-        gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}
-
+    {
+        transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}       
+        //gameObject.transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); 
+        //gameObject.GetComponent<Rigidbody2D>().AddForce(dir * AttackSpeed, ForceMode2D.Impulse);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,11 +65,11 @@ public class BulletObject : MonoBehaviour
     }
 
 
-    /*IEnumerator ReloadBullet()
+    IEnumerator ReloadBullet()
     {
         if (isReload == true)
         {
             yield return new WaitForSeconds(ReloadTime);
         }
-    }*/
+    }
 }

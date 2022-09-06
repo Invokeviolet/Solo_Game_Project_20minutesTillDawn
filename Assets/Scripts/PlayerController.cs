@@ -28,8 +28,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 movePlayer;
     Animator myAnimator;
-    Monster myMonster;
-    Wepon wepon;
+    Monster myMonster;    
     UIManager uiManager;
 
     SpriteRenderer ColorRenderer;
@@ -50,8 +49,7 @@ public class PlayerController : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         myMonster = FindObjectOfType<Monster>();
         expItem = FindObjectOfType<ExpItem>();
-        myAnimator = GetComponent<Animator>();
-        wepon = GetComponent<Wepon>();
+        myAnimator = GetComponent<Animator>();        
         ColorRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
