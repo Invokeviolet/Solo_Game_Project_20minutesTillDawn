@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Die_State()
     {
-        ColorRenderer.material.color = Color.red; // 플레이어가 죽으면 색상 변경하기
+        //ColorRenderer.material.color = Color.red; // 플레이어가 죽으면 색상 변경하기
 
         wepon.SetOff();
 
