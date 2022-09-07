@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int Level = 1;
     [SerializeField] int LevelUp = 1;
     [SerializeField] int maxHp = 4;
-    [SerializeField] float MoveSpeed = 100f;
-    [SerializeField] public float absorbArange = 3f;
+    [SerializeField] float MoveSpeed = 6f;
+    //[SerializeField] public float absorbArange = 3f; // 범위 체크
     [SerializeField] GameObject expItemObj; // 경험치 아이템
     [SerializeField] Monster monster;
 

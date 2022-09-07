@@ -5,18 +5,27 @@ using UnityEngine;
 public class BulletSpawner : MonoBehaviour
 {
 
-    BulletObject bulletObject; // 불렛 오브젝트의 객체 생성
+    [SerializeField] BulletObject bulletObject; // 불렛 오브젝트의 객체 생성
+
+    [SerializeField] public int Maxbullet = 6; // 최대 총알 갯수
+    [SerializeField] public int Curbullet = 0; // 현재 총알 갯수
 
     float TimeAfterSpawn; // 생성하는데 걸리는 시간
     float SpawnRate; // 다음 생성까지 걸리는 시간    
     public Transform mousetransform;
 
+    UIManager uimanager;
 
     void Start()
     {
-        bulletObject = GetComponent<BulletObject>(); // 불렛오브젝트의 컴포넌트를 참조한다.
+        uimanager = FindObjectOfType<UIManager>();
+        //bulletObject = FindObjectOfType<BulletObject>(); // 불렛오브젝트의 컴포넌트를 참조한다.
         TimeAfterSpawn = 0;
         SpawnRate = 1.0f;
+
+        Debug.Log("## Curbullet : " + Curbullet);
+        Debug.Log("## Maxbullet : " + Maxbullet);
+        Curbullet = Maxbullet; // 현재 불릿 갯수를 최대 갯수로 초기화
     }
     void Update()
     {
@@ -26,17 +35,42 @@ public class BulletSpawner : MonoBehaviour
         //오일러 사용하는 이유? (쿼터니언이 사원수이기 때문에 벡터값으로 변환해서 사용)
 
         InstBullet();
+
     }
 
     public void InstBullet()
     {
-        // 마우스클릭 시 총알 뱉기
+        // 마우스클릭 시 총알 뱉기       
+
+        UIManager.Instance.BulletCount(Curbullet); // 현재 불렛 갯수를 좌측 상단에 표시해줄 UI
+        UIManager.Instance.MouseBulletCount(Curbullet); // 현재 불렛 갯수를 마우스에 표시해줄 UI
+        
 
         if (Input.GetMouseButtonDown(0))
         {
-            BulletPooling.Instance.CreateBullet(transform.position, transform.rotation); // 불렛풀링에서 불렛 생성해서 가져옴. (스포너위치에서 발생, 사용될 총알 프리팹)                        
-        }
+            if (Curbullet >= 1) //총알이 있을때만 발사
+            {
+                BulletPooling.Instance.CreateBullet(transform.position, transform.rotation); // 불렛풀링에서 불렛 생성해서 가져옴. (스포너위치에서 발생, 사용될 총알 프리팹)                        
 
+                Curbullet--; // 현재 총알 갯수 -1
+
+                //Debug.Log("--Curbullet : " + Curbullet);
+
+
+            }
+        }
+        if (Input.GetKey(KeyCode.R)) // 재장전 버튼을 꾹 누르고 있으면
+        {
+            UIManager.Instance.bulletCheck(); // 재장전
+        }
+        if (Curbullet <= 0) // 남은 총알이 0이거나 음수일때 재장전시간 이후에 총알 생성
+        {
+            Curbullet = 0;
+            //bulletCheck();
+            UIManager.Instance.bulletCheck();
+        }
     }
+
+
 
 }

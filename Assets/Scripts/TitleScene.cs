@@ -25,7 +25,10 @@ public class TitleScene : MonoBehaviour
     static public void Play()
     {
         //SceneManager.LoadScene("HomeScene");
-        SceneManager.LoadScene("HomeScene", LoadSceneMode.Single);
+
+        SceneManager.LoadScene("HomeScene");
+
+
         //SceneManager.LoadScene("HomeScene", LoadSceneMode.Additive);
     }
 

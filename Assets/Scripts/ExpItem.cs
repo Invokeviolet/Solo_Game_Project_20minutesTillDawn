@@ -8,15 +8,15 @@ public class ExpItem : MonoBehaviour
 
 
     public float ExpValue { get; set; } // 경험치 값
+    
 
-     
-    //public int TargetMoveSpeed = 3; // 이동속도
+    
     [SerializeField]Transform monsterInfo; //  아이템을 해당 (스포너)몬스터로 이동시키기 위해 몬스터의 좌표값을 받아옴
 
     
     void Awake()
     {
-       
+        
     }
 
     void Update()
@@ -31,7 +31,8 @@ public class ExpItem : MonoBehaviour
         if (collision.tag == "Player")
         {            
             Debug.Log("먹었니?");            
-            UIManager.Instance.ExpUpdate(10f);
+            UIManager.Instance.ExpUpdate(10f); // 경험치 + 10            
+
             ItemPool.Instance.DestroyItem(expItemPrefab);            
         }
     }

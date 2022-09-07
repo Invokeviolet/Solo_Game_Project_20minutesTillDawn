@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour
     int MonsterCount; // 몬스터의 카운트를 세어주는 역할 -> 최종 점수 체크때 사용 필요    
 
     public int curHp = 0; // 현재 체력
+
     bool isDead { get { return (curHp <= 0); } }
     //bool isAttacked ; // 맞았나?
 
@@ -54,6 +55,7 @@ public class Monster : MonoBehaviour
     {
         MoveTarget();
         if (isDead) return;
+        BoundaryCheck();
     }
 
     void MoveTarget()
@@ -109,6 +111,46 @@ public class Monster : MonoBehaviour
 
     }
 
+    void BoundaryCheck() 
+    {
+        if (targetPlayer.transform.position.x - transform.position.x > 10) // 목표지점-나의지점이 > 뭐보다 클때 // 오른쪽으로 갈때
+        {
+            MoveMonster(2);
+        }
+        if (targetPlayer.transform.position.x - transform.position.x < -10) // 왼쪽으로 갈때
+        {
+            MoveMonster(0);
+        }
+        if (targetPlayer.transform.position.y - transform.position.y > 10) // 위로 갈때
+        {
+            MoveMonster(1);
+        }
+        if (targetPlayer.transform.position.y - transform.position.y < -10) // 아래로 갈때 
+        {
+            MoveMonster(3);
+        }
+    }
+    
+    
+    void MoveMonster(int dir) 
+    {
+        switch (dir)
+        {
+            case 0:
+                transform.position += Vector3.left * 20; //왼쪽
+                break;
+            case 1:
+                transform.position += Vector3.up * 20;
+                break;
+            case 2:
+                transform.position += Vector3.right * 20;
+                break;
+            case 3:
+                transform.position += Vector3.down * 20;
+                break;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Bullet") 
@@ -117,7 +159,7 @@ public class Monster : MonoBehaviour
             direction = new Vector3 (-0.1f, -0.1f, 0); // 넉백 -> 총알 방향으로 뒤로 밀려나야 함
             gameObject.transform.Translate(direction * speed * Time.deltaTime);
 
-            TransferDamage(20f); // 총알 데미지 값
+            TransferDamage(20f); // 총알 데미지 값이 여기로 들어옴
 
         }
     }

@@ -22,6 +22,7 @@ public class HomeScene : MonoBehaviour
     static public void Play()
     {
         SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1;
     }
     
     static public void Title()

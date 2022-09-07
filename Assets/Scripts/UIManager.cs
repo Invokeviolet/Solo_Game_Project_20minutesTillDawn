@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
 
@@ -38,25 +38,32 @@ public class UIManager : MonoBehaviour
     //[SerializeField] GameObject MenuWindow;
 
 
-    [SerializeField] Text TimeScore; // (00:00) -> 시간정보
-    [SerializeField] Text TimeScore_Add; // (초)단위 점수 
-    [SerializeField] Text MonsterScore; // (몬스터 잡은 수) -> 몬스터 정보
-    [SerializeField] Text MonsterScore_Add; // 몬스터 잡은 수
+    /* [SerializeField] Text TimeScore; // (00:00) -> 시간정보
+     [SerializeField] Text TimeScore_Add; // (초)단위 점수 
+     [SerializeField] Text MonsterScore; // (몬스터 잡은 수) -> 몬스터 정보
+     [SerializeField] Text MonsterScore_Add; // 몬스터 잡은 수
+     [SerializeField] Text AllScore; // Earned
+     [SerializeField] Text AllScore_Add; // 총 점수*/
     [SerializeField] Text LevelScore; // (레벨) -> 플레이어 정보
-    [SerializeField] Text LevelScore_Add; // 레벨 * 10    
-    [SerializeField] Text AllScore; // Earned
-    [SerializeField] Text AllScore_Add; // 총 점수
+    [SerializeField] Text LevelAdd_text; // 레벨 * 10    
 
-    // 시간 계산을 위한 UI
+    //Exp
     [SerializeField] Slider ExpSlider; // Exp 슬라이더
-    [SerializeField] Slider ReloadSlider; // Reload 슬라이더
-    [SerializeField] Image[] Heartimage; // 체력 이미지 배열    
-    [SerializeField] Text TimeText; // 타이머 텍스트
-    [SerializeField] Text BulletCountText; // 총알 갯수
-
     [SerializeField] ExpItem expitem;
 
+    //체력바
+    [SerializeField] Image[] Heartimage; // 체력 이미지 배열    
 
+    //타이머
+    [SerializeField] Text TimeText; // 타이머 텍스트
+
+    //총알
+    public float ReloadTime; // 재장전 시간
+    [SerializeField] public Slider ReloadSlider; // Reload 슬라이더
+    [SerializeField] Text BulletCountText; // 총알 갯수
+    [SerializeField] public Text MouseBulletCountText; // 총알 갯수
+
+    private BulletSpawner bulletspawner;
     private BulletObject bulletObject;
     private PlayerController playerInfo;
     private Monster monster;
@@ -64,9 +71,6 @@ public class UIManager : MonoBehaviour
     float Time_S; // 초 계산
     float Time_M; // 분 계산
     float Stop_Time; // 시간 멈춤
-
-    int curBullet; // 현재 총알 갯수
-    int maxBullet = 6; // 최대 총알 갯수
 
 
     float maxExpValue; // 슬라이더 최댓값
@@ -77,15 +81,17 @@ public class UIManager : MonoBehaviour
 
     bool isGameOver = false;
 
-    //HUD캔버스
-    //WaveText 빈오브젝트 생성
-    //
+    //[SerializeField] Animator reloadBullet; //재장전 애니메이션 가져오기    
+    bool isReload = false;
+    int LevelUp; // 레벨 계산할 값
 
     private void Awake()
     {
+        //reloadBullet = FindObjectOfType<Animator>();
         //ExpSlider = GetComponent<Slider>();
         playerInfo = FindObjectOfType<PlayerController>();
         bulletObject = FindObjectOfType<BulletObject>();
+        bulletspawner = FindObjectOfType<BulletSpawner>();
         //expitem = FindObjectOfType<ExpItem>();
         curHeart = maxHeart;
 
@@ -93,15 +99,20 @@ public class UIManager : MonoBehaviour
         Time_S = 0; // 초
 
         GameOverWindow.SetActive(false);
+        ReloadSlider.gameObject.SetActive(false); // 슬라이더 비활성화
         maxExpValue = 100f; // 경험치 최댓값
-        //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
 
         ExpSlider.value = 0f;
-        //ReloadSlider.value = 0f;
+        ReloadSlider.value = 0f;
+
+        ReloadTime = 1.0f;
+
+        LevelUp = 1;
     }
 
     private void Start()
     {
+        ReloadSlider.value = 1f; // 재장전 시간은 1부터 0으로 내려감
 
     }
 
@@ -110,57 +121,75 @@ public class UIManager : MonoBehaviour
     {
         CheckHeart();
 
+        LevelUpdate();
 
         if (!isGameOver) { BackTime(); }
 
         else { RestoreTime(); }
-
-
-        //BulletCountText.text = bulletObject.Curbullet + "/" + bulletObject.Maxbullet;
     }
 
 
-    public void BulletCount(int curCount)
+    public void bulletCheck() // 불렛갯수가 0이하일때 재장전을 체크하는 곳
     {
-        BulletCountText.text = ("00" + curCount + "/" + "00" + maxBullet);
-        if (curCount < 0)
+
+        ReloadTime -= Time.deltaTime; // 재장전시간을 점차 줄여나감
+        //Debug.Log("ReloadTime : " + ReloadTime);
+
+        ReloadSlider.gameObject.SetActive(true);
+        ReloadSlider.value = ReloadTime; // 총알의 갯수 체크하는 좌측 상단 UI -> 슬라이더의 시간값도 같이 계산
+
+        //isReload = true;
+        //reloadBullet.SetBool("isReload", isReload);
+
+        if (ReloadTime <= 0f) // 재장전 시간이 0이 되면
         {
-            curCount = 0;
+            //isReload = false; // 재장전 애니메이션
+            //reloadBullet.SetBool("isReload", isReload);
+
+            ReloadTime = 1; // 리로드 타임을 다시 초기화 해줌.
+            ReloadSlider.gameObject.SetActive(false);
+
+            if (bulletspawner.Curbullet <= 0) // 남은 총알이 0이거나 음수일때 재장전시간 이후에 총알 생성
+            {
+                bulletspawner.Curbullet = bulletspawner.Maxbullet;
+            }
+            Debug.Log("ReloadTime : " + ReloadTime);
         }
+
     }
 
-    public void bulletCheck(float Reload)
+    public void BulletCount(int curCount) // 총알의 갯수 체크하는 좌측 상단 UI
     {
-        Reload-= Time.deltaTime;
-        ReloadSlider.value = Reload;
-    }
 
+        BulletCountText.text = ("00" + curCount + "/" + "00" + bulletspawner.Maxbullet); //불렛 갯수가 텍스트로 표시
+
+    }
+    public void MouseBulletCount(int curCount) // 총알의 갯수 체크하는 좌측 상단 UI
+    {
+
+        MouseBulletCountText.text = "" + curCount; //불렛 갯수가 텍스트로 표시
+
+    }
 
     public void ExpUpdate(float ExpValue) // 경험치 + 해주는 함수
     {
-
-        //ExpSlider.value += (PlusExp /float.MaxValue)*0.1f;//경험치 -> 소수형태로 변환 10(추가경험치)/100(최대 경험치)*0.1 ->1
-
         ExpSlider.value += ExpValue;
+    }
 
+
+    public void LevelUpdate() // 레벨업 받기 위한 값
+    {
+        LevelAdd_text.text = "" + LevelUp;
         if (ExpSlider.value >= maxExpValue)
         {
-            ResetExpSlider(); // 최댓값 초기화 해주기 위함 -> 초기화가 안됨
+            
+            Debug.Log("Level : " + LevelAdd_text.text);
+            ++LevelUp;
+            ExpSlider.value = 0f;
         }
-
     }
 
-    public void ResetReloadSlider() // 리로드 값 초기화
-    {
-        ReloadSlider.value = 0;
-    }
-
-    public void ResetExpSlider() // 경험치가 일정 값만큼 쌓이면 초기화해주는 함수
-    {
-        ExpSlider.value = 0f;
-    }
-
-
+    
     public void CheckHeart() // 플레이어가 데미지 입었을때 계산되는 하트 갯수
     {
         curHeart = playerInfo.curHp;
@@ -220,6 +249,9 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         GameOverWindow.SetActive(true);
+
+        Time.timeScale = 0;
+
 
         //점수 계산 
 

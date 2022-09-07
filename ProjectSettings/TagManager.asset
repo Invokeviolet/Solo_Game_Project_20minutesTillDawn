@@ -50,6 +50,9 @@ TagManager:
   - name: background
     uniqueID: 3474391383
     locked: 0
+  - name: middleUI
+    uniqueID: 3485426025
+    locked: 0
   - name: middleground
     uniqueID: 3673861427
     locked: 0
