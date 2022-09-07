@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.Arm;
+using System.ComponentModel;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("[플레이어 정보]")]
     [SerializeField] Text LevelText; // 게임 중 화면 중앙 상단에 표시 될 레벨
-  
+
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 6f;
-    
+
     [SerializeField] GameObject expItemObj; // 경험치 아이템
     [SerializeField] Monster monster;
 
     public int curHp = 0; // 현재 Hp
-    
-    bool isWalk; // 걷는지?
-    bool isDead; // 죽었는지?
 
+    bool isWalk; // 걷는지?
+    bool isDead; // 죽었는지?    
 
     Vector2 movePlayer; // 플레이어의 벡터값
     Animator myAnimator; // 애니메이션    
-    UIManager uiManager; // UI 매니저
+
 
     SpriteRenderer ColorRenderer;
     Rigidbody2D rigidbody2D;
@@ -30,21 +31,22 @@ public class PlayerController : MonoBehaviour
     float TimeTrigger = 0f; // 현재 충돌 시간
     float TimeRate = 0.5f; // 충돌 후 경과시간
 
-
+    Wepon_Gun wepon;
     private void Awake()
     {
         curHp = maxHp; // 현재 Hp 값을 최대 값으로 설정
         gameObject.SetActive(true); // 플레이어 오브젝트 활성화
-        
+
     }
 
     // 각 컴포넌트 및 오브젝트 찾아오기
     void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();        
+
         myAnimator = GetComponent<Animator>();
         ColorRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        wepon = FindObjectOfType<Wepon_Gun>();
 
         isDead = false; // 죽었는지? 값 초기화
         isWalk = false; // 걸었는지? 값 초기화
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
         bool isMove = (xAxis != 0) || (yAxis != 0); // bool 형태로 움직임이 없는 값을 확인
 
         if (isMove) // 움직임이 있을 때
-        {            
+        {
             movePlayer = (Vector2.right * xAxis + Vector2.up * yAxis).normalized; // 플레이어의 대각선이동을 nomalized 를 사용해 이동값을 모두 1로 받는다.
 
             rigidbody2D.MovePosition(rigidbody2D.position + (movePlayer * MoveSpeed * Time.deltaTime)); // 이동하는 값 = 리지드바디 위치()
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isWalk = false; // 안 걷고 있다면? 걷는 애니메이션 false
-            myAnimator.SetBool("isWalked", false);
+            myAnimator.SetBool("isWalked", isWalk);
         }
 
     }
@@ -117,19 +119,26 @@ public class PlayerController : MonoBehaviour
 
             curHp = 0; // 현재 Hp를 0으로 제한
             isDead = true; // 죽음 = true
-            Die(); // 죽었을때 플레이어에게 변화를 줄 메서드 소환
+            StartCoroutine(Die_State()); // 죽었을때 플레이어에게 변화를 줄 메서드 소환
         }
 
     }
-    void Die() // 죽었을 때
+
+    public IEnumerator Die_State()
     {
-        
-        ColorRenderer.material.color = Color.red; // 플레이어의 색상 변경하기
+        ColorRenderer.material.color = Color.red; // 플레이어가 죽으면 색상 변경하기
 
-        gameObject.SetActive(false); // 게임오브젝트 비활성화
-        uiManager.GameOver(); // UI 상태를 게임오버상태로 전환
+        wepon.SetOff();
 
+        isDead = true;
+        myAnimator.SetBool("isDead", isDead);
+
+        //Vector2 vec = new Vector2(transform.position,transform.rotation);
+
+        yield return new WaitForSeconds(6f);
+
+        // UI 상태를 게임오버상태로 전환
+        UIManager.Instance.GameOver();
     }
-
 
 }

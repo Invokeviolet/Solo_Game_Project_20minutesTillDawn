@@ -126,6 +126,7 @@ public class UIManager : MonoBehaviour
         if (!isGameOver) { BackTime(); }
 
         else { RestoreTime(); }
+
     }
 
 
@@ -147,6 +148,7 @@ public class UIManager : MonoBehaviour
 
             if (bulletspawner.Curbullet <= 0) // 남은 총알이 0이거나 음수일때 재장전시간 이후에 총알 생성
             {
+                bulletspawner.Curbullet = 0;
                 bulletspawner.Curbullet = bulletspawner.Maxbullet; // 총알 스포너의 총알 갯수를 최대 총알 갯수로 초기화
             }
             
@@ -243,6 +245,7 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        
         GameOverWindow.SetActive(true);
 
         Time.timeScale = 0;

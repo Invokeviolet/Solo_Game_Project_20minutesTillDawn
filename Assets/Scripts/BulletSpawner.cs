@@ -51,12 +51,11 @@ public class BulletSpawner : MonoBehaviour
         {
             if (Curbullet >= 1) //총알이 있을때만 발사
             {
-                BulletPooling.Instance.CreateBullet(transform.position, transform.rotation); // 불렛풀링에서 불렛 생성해서 가져옴. (스포너위치에서 발생, 사용될 총알 프리팹)                        
+                BulletPooling.Instance.CreateBullet(transform.position, transform.rotation); // 불렛풀링에서 불렛 생성해서 가져옴. (스포너위치에서 발생, 사용될 총알 프리팹) 
 
                 Curbullet--; // 현재 총알 갯수 -1
 
                 //Debug.Log("--Curbullet : " + Curbullet);
-
 
             }
         }

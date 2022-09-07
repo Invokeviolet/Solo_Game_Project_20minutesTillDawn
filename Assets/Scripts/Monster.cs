@@ -44,6 +44,7 @@ public class Monster : MonoBehaviour
     void Update()
     {
         if (isDead) return; // 죽었을때 반환
+        if (targetPlayer == null) { return; }
         MoveTarget(); // 타겟을 향해 자동으로 움직이는 메서드
         BoundaryCheck(); // 플레이어가 이동하면 몬스터가 그 근처로 이동하는 메서드
     }
@@ -179,9 +180,7 @@ public class Monster : MonoBehaviour
 
     IEnumerator IDLE_State() // 대기 상태
     {
-
-
-        while (isDead == false)
+        while (!isDead)
         {
             targetPlayer = FindObjectOfType<PlayerController>();
             if (targetPlayer != null)

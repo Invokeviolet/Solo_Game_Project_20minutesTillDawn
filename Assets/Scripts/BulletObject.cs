@@ -15,17 +15,16 @@ public class BulletObject : MonoBehaviour
 
     public Transform myTarget { get; set; }
 
-    
+
 
     void Update()
     {
         BulletMove();
-
     }
 
     public void BulletMove()
     {
-        transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간}       
+        transform.Translate(Vector3.right * AttackSpeed * Time.deltaTime); // 게임오브젝트를 움직일거야 (방금 계산한 거리 * 시간} 
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
