@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오브젝트가 마우스를 따라 방향을 전환하는 클래스
 public class RotateFunction : MonoBehaviour
 {
     

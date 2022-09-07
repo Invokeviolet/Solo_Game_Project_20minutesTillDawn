@@ -7425,7 +7425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletSpawner: {fileID: 1226074374}
-  BulletPrefab: {fileID: 4050998752867619581, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
+  BulletPrefab: {fileID: 4095355522276317547, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
 --- !u!4 &1106614588
 Transform:
   m_ObjectHideFlags: 0
@@ -10214,6 +10214,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 63536f1a9ba47c44c98193e6e27687c0, type: 2}
+    - target: {fileID: 1971210190, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971210191, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
+      propertyPath: bulletObject
+      value: 
+      objectReference: {fileID: 4095355522276317547, guid: 1b001fa505dc90e4093cd37b5e6aaf82, type: 3}
     - target: {fileID: 2506211432469083006, guid: 06cc571db4d414f41ba935fc395e455b, type: 3}
       propertyPath: LevelText
       value: 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 총알 스포너 - 총알을 관리해주기 위한 클래스
 public class BulletSpawner : MonoBehaviour
 {
 
@@ -12,7 +13,7 @@ public class BulletSpawner : MonoBehaviour
 
     float TimeAfterSpawn; // 생성하는데 걸리는 시간
     float SpawnRate; // 다음 생성까지 걸리는 시간    
-    public Transform mousetransform;
+    
 
     UIManager uimanager;
 
@@ -65,9 +66,9 @@ public class BulletSpawner : MonoBehaviour
         }
         if (Curbullet <= 0) // 남은 총알이 0이거나 음수일때 재장전시간 이후에 총알 생성
         {
-            Curbullet = 0;
-            //bulletCheck();
-            UIManager.Instance.bulletCheck();
+            Curbullet = 0; // 현재 불릿을 0으로 제한
+            
+            UIManager.Instance.bulletCheck(); // 불릿을 체크하는 메서드 생성
         }
     }
 

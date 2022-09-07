@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 경험치 아이템 클래스
 public class ExpItem : MonoBehaviour
 {
     [SerializeField] ExpItem expItemPrefab;

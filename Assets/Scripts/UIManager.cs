@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+// UI 매니저 클래스
 public class UIManager : MonoBehaviour
 {
 
@@ -70,8 +72,6 @@ public class UIManager : MonoBehaviour
 
     float Time_S; // 초 계산
     float Time_M; // 분 계산
-    float Stop_Time; // 시간 멈춤
-
 
     float maxExpValue; // 슬라이더 최댓값
 
@@ -133,27 +133,23 @@ public class UIManager : MonoBehaviour
     {
 
         ReloadTime -= Time.deltaTime; // 재장전시간을 점차 줄여나감
-        //Debug.Log("ReloadTime : " + ReloadTime);
+        
 
-        ReloadSlider.gameObject.SetActive(true);
+        ReloadSlider.gameObject.SetActive(true); // 슬라이더 활성화
         ReloadSlider.value = ReloadTime; // 총알의 갯수 체크하는 좌측 상단 UI -> 슬라이더의 시간값도 같이 계산
 
-        //isReload = true;
-        //reloadBullet.SetBool("isReload", isReload);
 
         if (ReloadTime <= 0f) // 재장전 시간이 0이 되면
         {
-            //isReload = false; // 재장전 애니메이션
-            //reloadBullet.SetBool("isReload", isReload);
-
-            ReloadTime = 1; // 리로드 타임을 다시 초기화 해줌.
-            ReloadSlider.gameObject.SetActive(false);
+            
+            ReloadTime = 1; // 리로드 타임을 1로 다시 초기화 
+            ReloadSlider.gameObject.SetActive(false); // 리로드 값이 초기화 되었으므로 슬라이더를 다시 비활성화
 
             if (bulletspawner.Curbullet <= 0) // 남은 총알이 0이거나 음수일때 재장전시간 이후에 총알 생성
             {
-                bulletspawner.Curbullet = bulletspawner.Maxbullet;
+                bulletspawner.Curbullet = bulletspawner.Maxbullet; // 총알 스포너의 총알 갯수를 최대 총알 갯수로 초기화
             }
-            Debug.Log("ReloadTime : " + ReloadTime);
+            
         }
 
     }
@@ -161,7 +157,7 @@ public class UIManager : MonoBehaviour
     public void BulletCount(int curCount) // 총알의 갯수 체크하는 좌측 상단 UI
     {
 
-        BulletCountText.text = ("00" + curCount + "/" + "00" + bulletspawner.Maxbullet); //불렛 갯수가 텍스트로 표시
+        BulletCountText.text = ("00" + curCount + "/" + "00" + bulletspawner.Maxbullet); // 현재 총알 불렛 갯수 / 최대 총알 갯수를 텍스트로 표시
 
     }
     public void MouseBulletCount(int curCount) // 총알의 갯수 체크하는 좌측 상단 UI
@@ -173,18 +169,17 @@ public class UIManager : MonoBehaviour
 
     public void ExpUpdate(float ExpValue) // 경험치 + 해주는 함수
     {
-        ExpSlider.value += ExpValue;
+        ExpSlider.value += ExpValue; // 슬라이더의 값을 점차적으로 더해준다.
     }
 
 
     public void LevelUpdate() // 레벨업 받기 위한 값
     {
-        LevelAdd_text.text = "" + LevelUp;
-        if (ExpSlider.value >= maxExpValue)
-        {
-            
-            Debug.Log("Level : " + LevelAdd_text.text);
-            ++LevelUp;
+        LevelAdd_text.text = "" + LevelUp; // 레벨 텍스트 = 레벨 1
+        if (ExpSlider.value >= maxExpValue) // 레벨 슬라이더 값이 최대 경험치 값보다 커지면 레벨 업
+        {            
+            //Debug.Log("Level : " + LevelAdd_text.text);
+            ++LevelUp; //레벨업
             ExpSlider.value = 0f;
         }
     }

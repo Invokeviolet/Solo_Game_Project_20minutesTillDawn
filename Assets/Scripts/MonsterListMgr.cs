@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 사용안함
 public class MonsterListMgr : MonoBehaviour
 {
     /*private MonsterListMgr() { }*/ // 

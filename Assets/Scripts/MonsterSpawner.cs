@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 몬스터 스포너 관리하기 위한 클래스
 public class MonsterSpawner : MonoBehaviour
 {
     public static MonsterSpawner instance;

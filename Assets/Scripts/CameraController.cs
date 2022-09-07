@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 카메라 컨트롤을 위한 클래스
 public class CameraController : MonoBehaviour
 {
     //public Transform target;

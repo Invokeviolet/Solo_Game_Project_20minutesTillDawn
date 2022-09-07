@@ -5,140 +5,129 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [Header("[플레이어 정보]")]
     [SerializeField] Text LevelText; // 게임 중 화면 중앙 상단에 표시 될 레벨
-    [SerializeField] int Level = 1;
-    [SerializeField] int LevelUp = 1;
+  
     [SerializeField] int maxHp = 4;
     [SerializeField] float MoveSpeed = 6f;
-    //[SerializeField] public float absorbArange = 3f; // 범위 체크
+    
     [SerializeField] GameObject expItemObj; // 경험치 아이템
     [SerializeField] Monster monster;
 
-    public int curHp = 0;
-    public float curExpPoint = 0;
-    public float plusExpPoint = 10f;
-
-    bool isWalk;
-    bool isDead;
+    public int curHp = 0; // 현재 Hp
+    
+    bool isWalk; // 걷는지?
+    bool isDead; // 죽었는지?
 
 
-    ExpItem expItem;
-
-
-    Vector2 movePlayer;
-    Animator myAnimator;
-    Monster myMonster;    
-    UIManager uiManager;
+    Vector2 movePlayer; // 플레이어의 벡터값
+    Animator myAnimator; // 애니메이션    
+    UIManager uiManager; // UI 매니저
 
     SpriteRenderer ColorRenderer;
     Rigidbody2D rigidbody2D;
 
-    float TimeTrigger = 0f;
-    float TimeRate = 1f;
+    float TimeTrigger = 0f; // 현재 충돌 시간
+    float TimeRate = 0.5f; // 충돌 후 경과시간
 
 
     private void Awake()
     {
-        curHp = maxHp;
-        gameObject.SetActive(true);
-        Debug.Log("## 경험치 : " + curExpPoint);
+        curHp = maxHp; // 현재 Hp 값을 최대 값으로 설정
+        gameObject.SetActive(true); // 플레이어 오브젝트 활성화
+        
     }
+
+    // 각 컴포넌트 및 오브젝트 찾아오기
     void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
-        myMonster = FindObjectOfType<Monster>();
-        expItem = FindObjectOfType<ExpItem>();
-        myAnimator = GetComponent<Animator>();        
+        uiManager = FindObjectOfType<UIManager>();        
+        myAnimator = GetComponent<Animator>();
         ColorRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
 
-        isDead = false;
-        isWalk = false;
+        isDead = false; // 죽었는지? 값 초기화
+        isWalk = false; // 걸었는지? 값 초기화
 
     }
 
     void Update()
     {
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
+        float xAxis = Input.GetAxis("Horizontal"); // 수평이동
+        float yAxis = Input.GetAxis("Vertical"); // 수직이동
 
-        bool isMove = (xAxis != 0) || (yAxis != 0);
+        bool isMove = (xAxis != 0) || (yAxis != 0); // bool 형태로 움직임이 없는 값을 확인
 
-        if (isMove)
-        {
-            //대각선이동
-            movePlayer = Vector2.right * xAxis + Vector2.up * yAxis;
-            rigidbody2D.MovePosition(rigidbody2D.position + (movePlayer * MoveSpeed * Time.deltaTime));
-            isWalk = true;
+        if (isMove) // 움직임이 있을 때
+        {            
+            movePlayer = (Vector2.right * xAxis + Vector2.up * yAxis).normalized; // 플레이어의 대각선이동을 nomalized 를 사용해 이동값을 모두 1로 받는다.
+
+            rigidbody2D.MovePosition(rigidbody2D.position + (movePlayer * MoveSpeed * Time.deltaTime)); // 이동하는 값 = 리지드바디 위치()
+
+            // 리지드바디.무브포지션으로 포지션값을 잡은 이유?
+            // 중력이 없는 움직임에 사용하기에 좋다.
+            // 리지드바디 위치로 받으면 충돌체크를 무시하는 경우가 낮아져서 사용
+
+            isWalk = true; // 걷고 있다면? 걷는 애니메이션 true
             myAnimator.SetBool("isWalked", isWalk);
         }
         else
         {
-            isWalk = false;
+            isWalk = false; // 안 걷고 있다면? 걷는 애니메이션 false
             myAnimator.SetBool("isWalked", false);
         }
 
     }
 
-    //이동할때 마우스가 x < 0 이면 그대로 보던 방향을 보고
-    //이동없이 마우스가 x < 0 이면 뒤집어주기
     private void OnTriggerStay2D(Collider2D collision) // 콜라이더 스테이 -> 몹
     {
 
-        TimeTrigger += Time.deltaTime;
+        TimeTrigger += Time.deltaTime; // 충돌 시간 += 시간 초단위로 계산해줌
 
-        if (isDead) { return; }
+        if (isDead) { return; } // 죽었을 때는 그냥 반환
 
-        if (!isDead)
+        if (!isDead) // 죽지 않았을 때
         {
-            // 새로운 적이 닿았을 때 또 Hp 감소하는 것을 체크해주어야 함. -> 유니런 참고
-            if (collision.tag == "Mob")
+
+            if (collision.tag == "Mob") // 몹태그를 가진 오브젝트와 충돌했을 때
             {
-                if (TimeTrigger >= TimeRate)
+                // 경과시간이 충돌 시간보다 클 때
+                if (TimeTrigger >= TimeRate) // 자주 중복되어 충돌되는 현상을 제거하기 위해 
                 {
-                    TimeTrigger = 0;
+                    TimeTrigger = 0; // 충돌시간을 0으로 초기화
 
-
-                    //넉백당해야함
-                    DamageToMonster(monster.attackPower);
+                    DamageToMonster(monster.attackPower); // 충돌했을 때 Hp 변화 값을 주고받기 위한 메서드 생성
 
                 }
             }
 
         }
-    }  
-   
-    public void DamageToMonster(float damageValue)
+    }
+
+    public void DamageToMonster(float damageValue) // 대미지 값을 float 형으로 받아옴
     {
 
-        if (isDead == true) return;
+        if (isDead == true) return; // 죽었을 때는 그냥 반환
 
-        //Debug.Log("## curHp : "+ curHp);
 
-        curHp -= (int)damageValue;
+        curHp -= (int)damageValue; //현재 Hp를 int형으로 변환하여 값을 받음
 
-        if (curHp <= 0)
+        if (curHp <= 0) // 만약 현재 Hp가 0보다 작거나 같을 때
         {
-            //Debug.Log("## change curHp : " + curHp);
-            curHp = 0;
-            isDead = true;
-            Die(); // 나중에 Enum 사용하여 정리
+
+            curHp = 0; // 현재 Hp를 0으로 제한
+            isDead = true; // 죽음 = true
+            Die(); // 죽었을때 플레이어에게 변화를 줄 메서드 소환
         }
 
     }
-    void Die()
+    void Die() // 죽었을 때
     {
-        //Debug.Log("## isDead : " + isDead);
-        if (isDead == true)
-        {
-            Debug.Log("## isDead : " + isDead);
-            ColorRenderer.material.color = Color.red; //색상 변경하기
+        
+        ColorRenderer.material.color = Color.red; // 플레이어의 색상 변경하기
 
-            //죽을때? 기본 애니메이션들은 작동하지만 위치이동 불가. 캐릭터 오브젝트가 위에서부터 아래로 점점 사라짐
-            gameObject.SetActive(false);
-            uiManager.GameOver();
-        }
+        gameObject.SetActive(false); // 게임오브젝트 비활성화
+        uiManager.GameOver(); // UI 상태를 게임오버상태로 전환
 
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 마우스 커서 위치에 생성되어 따라다니는 텍스트를 위한 클래스
 public class MouseFollowText : MonoBehaviour
 {
     [SerializeField] RectTransform transform_cursor; //메인 마우스 커서
@@ -47,17 +48,4 @@ public class MouseFollowText : MonoBehaviour
                
     }
 
-    void Update_MousePosition()
-    {
-        Vector2 mouseMovePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        float mouseXPos = Input.mousePosition.x;
-        float mouseYPos = Input.mousePosition.y;
-
-
-        string message = mouseMovePos.ToString(); // 총알 갯수 -> 재장전 업데이트가 같이 들어가야 함
-        Vector2 newPos = Camera.main.ScreenToWorldPoint(mouseMovePos);
-        text_Mouse.text = newPos.ToString();
-        text_Mouse.transform.position = mouseMovePos + (new Vector2(45, -20));//x는 양수 좌표, y는 음수 좌표
-        //Debug.Log(message);
-    }
 }

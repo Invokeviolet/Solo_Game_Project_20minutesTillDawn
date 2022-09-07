@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 총알 오브젝트 클래스
 public class BulletObject : MonoBehaviour
 {
     

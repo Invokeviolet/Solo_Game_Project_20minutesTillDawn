@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오브젝트를 뒤집기 위한 클래스
 public class FlipObject : MonoBehaviour
 {
-    SpriteRenderer FlipRenderer;
-    
+    SpriteRenderer FlipRenderer;    
 
     void Start()
     {

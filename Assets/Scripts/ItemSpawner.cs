@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 경험치 아이템 스포너 - 아이템을 관리해주기 위한 클래스
 public class ItemSpawner : MonoBehaviour
 {
     //public static ItemSpawner instItem;
@@ -34,7 +35,7 @@ public class ItemSpawner : MonoBehaviour
 
     public void ItemSpawn(Vector2 pos) 
     {
-        Debug.Log("## 아이템 생성111111111111111111111");
+        
         ItemPool.Instance.CreateItem(pos); // 죽인 몬스터 위치에서 생성하려면?
     }
 }
